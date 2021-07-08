@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
-    <main-header/>
+    <back-header/>
 
     <q-page-container>
       <router-view />
@@ -17,7 +17,7 @@ import { defineAsyncComponent } from 'vue'
 
 export default {
   components: {
-    MainHeader: defineAsyncComponent(() => import('components/MainHeader.vue')),
+    BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
     MainFooter: defineAsyncComponent(() => import('components/MainFooter.vue')),
   }
 }

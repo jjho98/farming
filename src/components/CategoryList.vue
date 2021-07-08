@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-center q-pa-md q-gutter-lg bg-white">
-    <div v-for="(item, index) in categories" :key="index">
+    <div v-for="(item, index) in categories" :key="index" @click="movePage(item.name)">
       <category-item :img="item.img" :name="item.name" />
     </div>
   </div>
@@ -12,6 +12,9 @@ export default {
   components: {
     CategoryItem: defineAsyncComponent(() => import('components/CategoryItem.vue'))
   },
+  props: [
+    'parentUrl'
+  ],
   data() {
     return {
       categories: [
@@ -56,6 +59,11 @@ export default {
           name: ''
         },
       ],
+    }
+  },
+  methods: {
+    movePage(category) {
+      this.$router.push({ path: `${this.$router.currentRoute._value.fullPath}/${category}` })
     }
   },
 }

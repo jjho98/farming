@@ -5,23 +5,26 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', component: () => import('pages/Index.vue') },
+      { name: 'deliveryIndex', path: 'delivery', component: () => import('pages/DeliveryIndex.vue') },
+      { name: 'directIndex', path: 'direct', component: () => import('pages/DirectIndex.vue') },
+      
     ]
   },
   {
     name: 'delivery',
     path: '/delivery',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/ListLayout.vue'),
     children: [
-      { name: 'deliveryIndex', path: '', component: () => import('pages/DeliveryPage.vue') }
+      { name: 'deliveryList', path: ':category', component: () => import('pages/DeliveryList.vue') },
     ]
   },
   {
     name: 'direct',
     path: '/direct',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/ListLayout.vue'),
     children: [
-      { name: 'directIndex', path: '', component: () => import('pages/DirectPage.vue') }
+      { name: 'directList', path: ':category', component: () => import('pages/DirectList.vue') },
     ]
   },
 
