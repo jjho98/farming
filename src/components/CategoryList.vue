@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-center q-pa-md q-gutter-lg delivery-category">
+  <div class="flex flex-center q-pa-md q-gutter-lg bg-white">
     <div v-for="(item, index) in categories" :key="index">
       <category-item :img="item.img" :name="item.name" />
     </div>
@@ -12,13 +12,55 @@ export default {
   components: {
     CategoryItem: defineAsyncComponent(() => import('components/CategoryItem.vue'))
   },
-  props: [
-    'categories',
-  ],
+  data() {
+    return {
+      categories: [
+        {
+          img: 'category',
+          name: '분류'
+        },
+        {
+          img: 'category',
+          name: '분류'
+        },
+        {
+          img: 'category',
+          name: '분류'
+        },
+        {
+          img: 'category',
+          name: '분류'
+        },
+        {
+          img: 'category',
+          name: '분류'
+        },
+        {
+          img: 'category',
+          name: '분류'
+        },
+        {
+          img: 'category',
+          name: '분류'
+        },
+        {
+          img: 'category',
+          name: '분류'
+        },
+        {
+          img: 'horizontal_rule',
+          name: ''
+        },
+        {
+          img: 'horizontal_rule',
+          name: ''
+        },
+      ],
+    }
+  },
 }
 </script>
 
 <style lang="sass" scoped>
-.delivery-category
-  background-color: white
+
 </style>>

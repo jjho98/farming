@@ -1,13 +1,20 @@
 <template>
   <q-page class="">
-    <div class="">
-    </div>
+    <category-list/>
   </q-page>
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
 export default {
-
+  components: {
+    CategoryList: defineAsyncComponent(() => import('src/components/CategoryList.vue')),
+  },
+  data() {
+    return {
+      
+    }
+  },
 }
 </script>
 

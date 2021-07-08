@@ -1,6 +1,6 @@
 <template>
   <q-footer elevated class="bg-white text-black">
-    <q-tabs dense mobile-arrows align="justify">
+    <q-tabs dense mobile-arrows align="justify" indicator-color="white">
       <q-tab icon="favorite_border" label="찜"></q-tab>
       <q-tab icon="content_paste" label="주문내역"></q-tab>
       <q-tab icon="search" label="검색"></q-tab>
