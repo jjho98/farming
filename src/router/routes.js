@@ -11,9 +11,17 @@ const routes = [
   {
     name: 'delivery',
     path: '/delivery',
-    component: () => import('layouts/DeliveryLayout.vue'),
+    component: () => import('layouts/MainLayout.vue'),
     children: [
-      
+      { name: 'deliveryIndex', path: '', component: () => import('pages/DeliveryPage.vue') }
+    ]
+  },
+  {
+    name: 'direct',
+    path: '/direct',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { name: 'directIndex', path: '', component: () => import('pages/DirectPage.vue') }
     ]
   },
 
@@ -21,7 +29,7 @@ const routes = [
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/Error404.vue')
+    component: () => import('pages/Error404.vue'),
   }
 ]
 
