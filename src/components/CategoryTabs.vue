@@ -1,6 +1,6 @@
 <template>
   <q-tabs
-    v-model="category"
+    v-model="selectedCategory"
     class="text-teal"
   >
     <span class="container" v-for="(item, index) in categories" :key="index">
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 
 export default {
   props: [
@@ -19,12 +20,13 @@ export default {
   ],
   data() {
     return {
+      ...mapState('choice', [
+        'selectedCategory'
+      ])
     }
   },
   computed: {
-    category() {
-      return this.$store.state.choice.selectedCategory
-    }
+    
   }
 }
 </script>

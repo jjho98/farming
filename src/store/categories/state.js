@@ -3,85 +3,105 @@ export default function() {
     deliveryCategories: [
       {
         img: 'category',
-        name: '분류1'
+        name: '분류1',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류2'
+        name: '분류2',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류3'
+        name: '분류3',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류4'
+        name: '분류4',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류5'
+        name: '분류5',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류6'
+        name: '분류6',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류7'
+        name: '분류7',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류8'
+        name: '분류8',
+        engName: 'fruits'
       },
       {
         img: 'horizontal_rule',
-        name: ''
+        name: '',
+        engName: 'fruits'
       },
       {
         img: 'horizontal_rule',
-        name: ''
+        name: '',
+        engName: 'fruits'
       },
     ],
     directCategories: [
       {
         img: 'category',
-        name: '분류1'
+        name: '분류1',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류2'
+        name: '분류2',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류3'
+        name: '분류3',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류4'
+        name: '분류4',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류5'
+        name: '분류5',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류6'
+        name: '분류6',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류7'
+        name: '분류7',
+        engName: 'fruits'
       },
       {
         img: 'category',
-        name: '분류8'
+        name: '분류8',
+        engName: 'fruits'
       },
       {
         img: 'horizontal_rule',
-        name: ''
+        name: '',
+        engName: 'fruits'
       },
       {
         img: 'horizontal_rule',
-        name: ''
+        name: '',
+        engName: 'fruits'
       },
     ]
   }

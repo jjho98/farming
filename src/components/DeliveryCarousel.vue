@@ -11,9 +11,7 @@
       transition-next="slide-left"
       height="150px"
       @mouseenter="autoplay = false"
-      @touchstart="autoplay = false"
       @mouseleave="autoplay = true"
-      @touchend="autoplay = true"
     >
       <q-carousel-slide :name="1" img-src="https://cdn.quasar.dev/img/mountains.jpg" />
       <q-carousel-slide :name="2" img-src="https://cdn.quasar.dev/img/parallax1.jpg" />
