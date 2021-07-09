@@ -24,7 +24,7 @@ export default {
   methods: {
     onClick(category) {
       this.movePage(category.engName)
-      this.changeCategory(category.name)
+      this.changeCategory(category.engName)
     },
     movePage(category) {
       this.$router.push({ path: `${this.$router.currentRoute._value.fullPath}/${category}` })

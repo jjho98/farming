@@ -4,52 +4,52 @@ export default function() {
       {
         img: 'category',
         name: '분류1',
-        engName: 'fruits'
+        engName: 'cate1'
       },
       {
         img: 'category',
         name: '분류2',
-        engName: 'fruits'
+        engName: 'cate2'
       },
       {
         img: 'category',
         name: '분류3',
-        engName: 'fruits'
+        engName: 'cate3'
       },
       {
         img: 'category',
         name: '분류4',
-        engName: 'fruits'
+        engName: 'cate4'
       },
       {
         img: 'category',
         name: '분류5',
-        engName: 'fruits'
+        engName: 'cate5'
       },
       {
         img: 'category',
         name: '분류6',
-        engName: 'fruits'
+        engName: 'cate6'
       },
       {
         img: 'category',
         name: '분류7',
-        engName: 'fruits'
+        engName: 'cate7'
       },
       {
         img: 'category',
         name: '분류8',
-        engName: 'fruits'
+        engName: 'cate8'
       },
       {
         img: 'horizontal_rule',
         name: '',
-        engName: 'fruits'
+        engName: ''
       },
       {
         img: 'horizontal_rule',
         name: '',
-        engName: 'fruits'
+        engName: ''
       },
     ],
     directCategories: [

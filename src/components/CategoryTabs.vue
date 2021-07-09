@@ -1,13 +1,10 @@
 <template>
   <q-tabs
     v-model="selectedCategory"
-    class="text-teal"
+    active-color="secondary" indicator-color="secondary"
+    class="text-black bg-white"
   >
-    <span class="container" v-for="(item, index) in categories" :key="index">
-      <q-tab name="item.name" label="item.name" />
-    </span>
-    <q-tab name="alarms" label="Alarms" />
-    <q-tab name="movies" label="Movies" />
+    <q-tab :name="item.name" :label="item.name" v-for="(item, index) in categories" :key="index"/>
   </q-tabs>
 </template>
 
@@ -20,13 +17,13 @@ export default {
   ],
   data() {
     return {
-      ...mapState('choice', [
-        'selectedCategory'
-      ])
+      
     }
   },
   computed: {
-    
+    ...mapState('choice', [
+        'selectedCategory'
+      ])
   }
 }
 </script>

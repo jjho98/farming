@@ -8,8 +8,10 @@
     </q-toolbar>
 
     <q-tabs v-model="menu" align="justify" active-color="secondary" indicator-color="secondary">
-      <q-route-tab :to="{ name: 'deliveryIndex' }" label="배달" name="배달" exact/>
-      <q-route-tab :to="{ name: 'directIndex' }" label="직거래" name="직거래" exact/> 
+      <q-tab :label="item.label" :name="item.name" v-for="(item, index) in menus" :key="index"/>
+      
+      <!-- <q-tab label="배달" name="delivery"/>
+      <q-tab label="직거래" name="direct"/> -->
     </q-tabs>
   </q-header>
 </template>
@@ -25,11 +27,22 @@ export default {
   data() {
     return {
       menu: '',
+      menus: [
+        {
+          label: '배달',
+          name: 'delivery',
+        },
+        {
+          label: '직거래',
+          name: 'direct',
+        },
+      ]
     }
   },
   watch: {
     menu: function(val) {
-      this.changeMenu(val)
+      const menu = this.menus.find(menu => menu.name === val)
+      this.changeMenu(menu)
     }
   },
   methods: {

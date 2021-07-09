@@ -1,41 +1,86 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="row content-start  q-pa-md q-gutter-md">
-      <div class="col" v-for="(card, index) in cards" :key="index">
-        <main-card :header="card.header" :icon="card.icon" :content="card.content"></main-card>
-      </div>
-    </div>
-  </q-page>
+  <q-header elevated class="text-black bg-white" height-hint="98">
+    <q-toolbar>
+      <q-btn flat dense icon="menu" @click="onClick" class="on-left"/>
+      <address-box/>
+      <q-btn flat dense round icon="shopping_cart" @click="onClick" class=" on-right"/>
+      <q-btn flat dense round icon="notifications_none" @click="onClick" class="on-right"/>
+    </q-toolbar>
+
+    <q-tabs v-model="tab" align="justify" active-color="secondary" indicator-color="secondary">
+      <q-tab :label="item.label" :name="item.name" v-for="(item, index) in menus" :key="index"/>
+    </q-tabs>
+  </q-header>
+
+  <q-tab-panels v-model="tab" animated keep-alive swipeable>
+    <q-tab-panel :name="menus[0].name">
+      <delivery-carousel/>
+      <category-list :categories="deliveryCategories"/>
+    </q-tab-panel>
+
+    <q-tab-panel :name="menus[1].name">
+      <category-list :categories="directCategories" />
+    </q-tab-panel>
+
+    <q-tab-panel name="movies">
+      <div class="text-h6">Movies</div>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+    </q-tab-panel>
+  </q-tab-panels>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
-  name: 'PageIndex',
   components: {
-    MainCard: defineAsyncComponent(() => import('components/MainCard.vue'))
+    AddressBox: defineAsyncComponent(() => import('components/AddressBox.vue')),
+    DeliveryCarousel: defineAsyncComponent(() => import('components/DeliveryCarousel.vue')),
+    CategoryList: defineAsyncComponent(() => import('src/components/CategoryList.vue')),
   },
   data() {
     return {
-      cards: [
+      tab: 'delivery',
+      menus: [
         {
-          header: '배달',
-          icon: 'local_shipping',
-          content: '가까운 지역에서 재배한 농산물을 배달해드립니다',
+          label: '배달',
+          name: 'delivery',
         },
         {
-          header: '직거래',
-          icon: 'shopping_basket',
-          content: '방문 구매해서 더 저렴하고 신선한 농산물',
+          label: '직거래',
+          name: 'direct',
         },
-      ],
-
+      ]
     }
+  },
+  computed: {
+    ...mapState('categories', [
+      'deliveryCategories',
+      'directCategories'
+    ])
+  },
+  watch: {
+    tab: function(val) {
+      const menu = this.menus.find(menu => menu.name === val)
+      this.changeMenu(menu)
+    }
+  },
+  methods: {
+    onClick() {
+
+    },
+    ...mapMutations({
+      changeMenu: 'choice/changeMenu',
+    })
   },
 }
 </script>
 
 <style lang="sass">
+.q-tab__indicator
+  height: 4px
 
+.q-tab__label
+  font-weight: bolder
 </style>
