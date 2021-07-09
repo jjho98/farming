@@ -3,25 +3,20 @@
     <q-toolbar>
       <q-btn flat dense icon="arrow_back_ios" @click="goBack"/>
       <q-toolbar-title class="text-center text-subtitle2 text-weight-bolder title">
-        {{ menu }}
+        {{ selectedMenu }}
       </q-toolbar-title>
     </q-toolbar>
   </q-header>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 
 export default {
-  data() {
-    return {
-
-    }
-  },
   computed: {
-    menu() {
-      return this.$store.state.choice.selectedMenu
-    },
+    ...mapState('choice', [
+      'selectedMenu'
+    ])
   },
   methods: {
     goBack() {

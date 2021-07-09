@@ -15,52 +15,10 @@ export default {
     CategoryItem: defineAsyncComponent(() => import('components/CategoryItem.vue'))
   },
   props: [
-    'parentUrl'
+    'categories'
   ],
   data() {
     return {
-      categories: [
-        {
-          img: 'category',
-          name: '분류1'
-        },
-        {
-          img: 'category',
-          name: '분류2'
-        },
-        {
-          img: 'category',
-          name: '분류3'
-        },
-        {
-          img: 'category',
-          name: '분류4'
-        },
-        {
-          img: 'category',
-          name: '분류5'
-        },
-        {
-          img: 'category',
-          name: '분류6'
-        },
-        {
-          img: 'category',
-          name: '분류7'
-        },
-        {
-          img: 'category',
-          name: '분류8'
-        },
-        {
-          img: 'horizontal_rule',
-          name: ''
-        },
-        {
-          img: 'horizontal_rule',
-          name: ''
-        },
-      ],
     }
   },
   methods: {
@@ -71,9 +29,9 @@ export default {
     movePage(category) {
       this.$router.push({ path: `${this.$router.currentRoute._value.fullPath}/${category}` })
     },
-    ...mapMutations({
-      'changeCategory': 'choice/changeCategory',
-    })
+    ...mapMutations('choice', [
+      'changeCategory',
+    ])
   },
 }
 </script>

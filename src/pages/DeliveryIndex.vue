@@ -1,12 +1,14 @@
 <template>
   <q-page class="">
     <delivery-carousel/>
-    <category-list/>
+    <category-list :categories="deliveryCategories"/>
   </q-page>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
+import { mapState } from 'vuex'
+
 export default {
   components: {
     DeliveryCarousel: defineAsyncComponent(() => import('components/DeliveryCarousel.vue')),
@@ -16,6 +18,11 @@ export default {
     return {
     }
   },
+  computed: {
+    ...mapState('categories', [
+      'deliveryCategories'
+    ])
+  }
 }
 </script>
 

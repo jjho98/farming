@@ -1,11 +1,13 @@
 <template>
   <q-page class="">
-    <category-list/>
+    <category-list :categories="directCategories" />
   </q-page>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
+import { mapState } from 'vuex'
+
 export default {
   components: {
     CategoryList: defineAsyncComponent(() => import('src/components/CategoryList.vue')),
@@ -15,6 +17,11 @@ export default {
       
     }
   },
+  computed: {
+    ...mapState('categories', [
+      'directCategories'
+    ])
+  }
 }
 </script>
 
