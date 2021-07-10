@@ -6,11 +6,12 @@
     <q-page-container>
       <q-page>
         <q-tabs v-model="tab" align="justify" active-color="secondary" indicator-color="secondary" class="bg-white">
-          <q-route-tab :to="{name: `${menu.name}Index`}" exact replace :label="menu.label" :name="menu.name" v-for="(menu, index) in menus" :key="index"/>
+          <q-route-tab :to="{path: `/delivery/${category.name}`}" exact replace :label="category.label" 
+            :name="category.name" v-for="(category, index) in categories" :key="index"/>
         </q-tabs>
 
         <q-tab-panels v-model="tab" animated keep-alive swipeable @before-transition="replaceRoute">
-          <q-tab-panel :name="menu.name" v-for="(menu, index) in menus" :key="index">
+          <q-tab-panel :name="category.name" v-for="(category, index) in categories" :key="index">
             <router-view/>
           </q-tab-panel>
         </q-tab-panels>
@@ -44,16 +45,16 @@ export default {
   },
   watch: {
     tab: function(val) {
-      const menu = this.categories.find(category => menu.name === val)
-      this.changeMenu(menu)
+      const category = this.categories.find(category => category.name === val)
+      this.changeCategory(category)
     }
   },
   methods: {
     replaceRoute(newTab, oldTab) {
-      this.$router.replace({name: `${newTab}Index`})
+      this.$router.replace({path: `/delivery/${newTab}`})
     },
     ...mapMutations('choices', [
-      'changeMenu',
+      'changeCategory',
     ])
   },
 }
