@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-center q-pa-md q-gutter-lg bg-white">
     <div v-for="(item, index) in categories" :key="index" @click="onClick(item)">
-      <category-item :img="item.img" :name="item.name"/>
+      <category-item :img="item.img" :label="item.label"/>
     </div>
   </div>
 </template>
@@ -23,13 +23,13 @@ export default {
   },
   methods: {
     onClick(category) {
-      this.movePage(category.engName)
-      this.changeCategory(category.engName)
+      this.movePage(category.name)
+      this.changeCategory(category)
     },
     movePage(category) {
       this.$router.push({ path: `${this.$router.currentRoute._value.fullPath}/${category}` })
     },
-    ...mapMutations('choice', [
+    ...mapMutations('choices', [
       'changeCategory',
     ])
   },

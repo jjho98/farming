@@ -21,7 +21,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('choice', [
+    ...mapState('choices', [
         'selectedCategory'
       ])
   }

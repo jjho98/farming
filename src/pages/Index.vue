@@ -70,9 +70,9 @@ export default {
     onClick() {
 
     },
-    ...mapMutations({
-      changeMenu: 'choice/changeMenu',
-    })
+    ...mapMutations('choices', [
+      'changeMenu',
+    ])
   },
 }
 </script>

@@ -6,7 +6,7 @@
       </span>
     </div>
     <div>
-      {{ name }}
+      {{ label }}
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@
 export default {
   props: [
     'img',
-    'name'
+    'label'
   ],
 }
 </script>

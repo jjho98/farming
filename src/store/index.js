@@ -1,6 +1,6 @@
 import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
-import choice from './choice'
+import choices from './choices'
 import categories from './categories'
 
 // import example from './module-example'
@@ -17,7 +17,7 @@ import categories from './categories'
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
-      choice,
+      choices,
       categories,
     },
 

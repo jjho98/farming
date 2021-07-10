@@ -14,7 +14,7 @@ const routes = [
   {
     name: 'delivery',
     path: '/delivery',
-    component: () => import('layouts/ListLayout.vue'),
+    component: () => import('layouts/DeliveryListLayout.vue'),
     children: [
       { name: 'deliveryList', path: ':category', component: () => import('pages/DeliveryList.vue') },
     ]
@@ -22,7 +22,7 @@ const routes = [
   {
     name: 'direct',
     path: '/direct',
-    component: () => import('layouts/ListLayout.vue'),
+    component: () => import('layouts/DeliveryListLayout.vue'),
     children: [
       { name: 'directList', path: ':category', component: () => import('pages/DirectList.vue') },
     ]

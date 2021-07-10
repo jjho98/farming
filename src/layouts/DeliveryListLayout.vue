@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
-    <main-header/>
+    <back-header/>
 
     <q-page-container>
       <q-page>
@@ -24,33 +24,27 @@
 
 <script>
 import { defineAsyncComponent } from 'vue'
-import { mapMutations} from 'vuex'
+import { mapState, mapMutations} from 'vuex'
 
 export default {
   name: 'MainLayout',
   components: {
-    MainHeader: defineAsyncComponent(() => import('components/MainHeader.vue')),
+    BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
     MainFooter: defineAsyncComponent(() => import('components/MainFooter.vue')),
   },
   data() {
     return {
       tab: '',
-      menus: [
-        {
-          label: '배달',
-          name: 'delivery',
-        },
-        {
-          label: '직거래',
-          name: 'direct',
-        },
-      ],
     }
   },
-
+  computed: {
+    ...mapState('categories', {
+      categories: 'deliveryCategories',
+    })
+  },
   watch: {
     tab: function(val) {
-      const menu = this.menus.find(menu => menu.name === val)
+      const menu = this.categories.find(category => menu.name === val)
       this.changeMenu(menu)
     }
   },
@@ -65,13 +59,6 @@ export default {
 }
 </script>
 
-<style lang="sass">
-.q-tab__indicator
-  height: 4px
+<style>
 
-.q-tab__label
-  font-weight: bolder
-
-.q-tab-panel
-  padding: 0
 </style>
