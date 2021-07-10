@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-center q-pa-md q-gutter-lg bg-white">
+  <div class="flex flex-center q-pa-md q-gutter-lg container">
     <div v-for="(item, index) in categories" :key="index" @click="onClick(item)">
       <category-item :img="item.img" :label="item.label"/>
     </div>

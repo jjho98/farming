@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
-    <back-header/>
+    <back-header label="배달"/>
 
     <q-page-container>
       <q-page>

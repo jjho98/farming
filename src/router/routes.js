@@ -8,7 +8,6 @@ const routes = [
       { path: '', redirect: {name: 'deliveryIndex'} },
       { name: 'deliveryIndex', path: 'delivery', component: () => import('pages/DeliveryIndex.vue') },
       { name: 'directIndex', path: 'direct', component: () => import('pages/DirectIndex.vue') },
-      
     ]
   },
   {
@@ -25,6 +24,14 @@ const routes = [
     component: () => import('layouts/DirectListLayout.vue'),
     children: [
       { name: 'directList', path: ':category', component: () => import('pages/DirectList.vue') },
+    ]
+  },
+  {
+    name: 'tab',
+    path: '/tab',
+    component: () => import('layouts/FooterLayout.vue'),
+    children: [
+      { name: 'addressSet', path: 'address', component: () => import('pages/AddressSet.vue')},
     ]
   },
 
