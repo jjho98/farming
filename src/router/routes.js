@@ -5,7 +5,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
+      { path: '', redirect: {name: 'deliveryIndex'} },
       { name: 'deliveryIndex', path: 'delivery', component: () => import('pages/DeliveryIndex.vue') },
       { name: 'directIndex', path: 'direct', component: () => import('pages/DirectIndex.vue') },
       

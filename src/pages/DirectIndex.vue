@@ -1,7 +1,5 @@
 <template>
-  <q-page class="">
-    <category-list :categories="directCategories" />
-  </q-page>
+  <category-list :categories="directCategories" />
 </template>
 
 <script>

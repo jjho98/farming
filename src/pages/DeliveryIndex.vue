@@ -1,8 +1,6 @@
 <template>
-  <q-page class="">
-    <delivery-carousel/>
-    <category-list :categories="deliveryCategories"/>
-  </q-page>
+  <delivery-carousel/>
+  <category-list :categories="deliveryCategories"/>
 </template>
 
 <script>
