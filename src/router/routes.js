@@ -22,7 +22,7 @@ const routes = [
   {
     name: 'direct',
     path: '/direct',
-    component: () => import('layouts/DeliveryListLayout.vue'),
+    component: () => import('layouts/DirectListLayout.vue'),
     children: [
       { name: 'directList', path: ':category', component: () => import('pages/DirectList.vue') },
     ]

@@ -26,8 +26,8 @@ export default {
       this.movePage(category.name)
       this.changeCategory(category)
     },
-    movePage(category) {
-      this.$router.push({ path: `${this.$router.currentRoute._value.fullPath}/${category}` })
+    movePage(categoryName) {
+      this.$router.push({ path: `${this.$router.currentRoute._value.fullPath}/${categoryName}` })
     },
     ...mapMutations('choices', [
       'changeCategory',

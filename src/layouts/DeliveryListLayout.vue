@@ -5,7 +5,7 @@
 
     <q-page-container>
       <q-page>
-        <q-tabs v-model="tab" align="justify" active-color="secondary" indicator-color="secondary" class="bg-white">
+        <q-tabs v-model="tab" align="justify" active-color="secondary" indicator-color="secondary" class="bg-white shadow-bottom">
           <q-route-tab :to="{path: `/delivery/${category.name}`}" exact replace :label="category.label" 
             :name="category.name" v-for="(category, index) in categories" :key="index"/>
         </q-tabs>

@@ -1,12 +1,32 @@
 <template>
-  <q-page class="">
-    
-  </q-page>
+  <q-list separator>
+    <q-item clickable v-ripple>
+      <q-item-section avatar>
+        <q-icon color="red" name="icecream" />
+      </q-item-section>
+      <q-item-section>사과</q-item-section>
+    </q-item>
+    <q-item clickable v-ripple>
+      <q-item-section avatar>
+        <q-icon color="red" name="icecream" />
+      </q-item-section>
+      <q-item-section>사과</q-item-section>
+    </q-item>
+  </q-list>
 </template>
 
 <script>
-export default {
+import { defineAsyncComponent } from 'vue'
+import {mapState} from 'vuex'
 
+export default {
+  components: {
+  },
+  computed: {
+    ...mapState('categories', [
+      'directCategories'
+    ])
+  }
 }
 </script>
 

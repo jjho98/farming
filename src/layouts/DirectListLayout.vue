@@ -1,16 +1,17 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
-    <main-header/>
+    <back-header/>
 
     <q-page-container>
       <q-page>
         <q-tabs v-model="tab" align="justify" active-color="secondary" indicator-color="secondary" class="bg-white shadow-bottom">
-          <q-route-tab :to="{name: `${menu.name}Index`}" exact replace :label="menu.label" :name="menu.name" v-for="(menu, index) in menus" :key="index"/>
+          <q-route-tab :to="{path: `/direct/${category.name}`}" exact replace :label="category.label" 
+            :name="category.name" v-for="(category, index) in categories" :key="index"/>
         </q-tabs>
 
         <q-tab-panels v-model="tab" animated keep-alive swipeable @before-transition="replaceRoute">
-          <q-tab-panel :name="menu.name" v-for="(menu, index) in menus" :key="index">
+          <q-tab-panel :name="category.name" v-for="(category, index) in categories" :key="index">
             <router-view/>
           </q-tab-panel>
         </q-tab-panels>
@@ -24,54 +25,41 @@
 
 <script>
 import { defineAsyncComponent } from 'vue'
-import { mapMutations} from 'vuex'
+import { mapState, mapMutations} from 'vuex'
 
 export default {
   name: 'MainLayout',
   components: {
-    MainHeader: defineAsyncComponent(() => import('components/MainHeader.vue')),
+    BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
     MainFooter: defineAsyncComponent(() => import('components/MainFooter.vue')),
   },
   data() {
     return {
       tab: '',
-      menus: [
-        {
-          label: '배달',
-          name: 'delivery',
-        },
-        {
-          label: '직거래',
-          name: 'direct',
-        },
-      ],
     }
   },
-
+  computed: {
+    ...mapState('categories', {
+      categories: 'directCategories',
+    })
+  },
   watch: {
     tab: function(val) {
-      const menu = this.menus.find(menu => menu.name === val)
-      this.changeMenu(menu)
+      const category = this.categories.find(category => category.name === val)
+      this.changeCategory(category)
     }
   },
   methods: {
     replaceRoute(newTab, oldTab) {
-      this.$router.replace({name: `${newTab}Index`})
+      this.$router.replace({path: `/direct/${newTab}`})
     },
     ...mapMutations('choices', [
-      'changeMenu',
+      'changeCategory',
     ])
   },
 }
 </script>
 
-<style lang="sass">
-.q-tab__indicator
-  height: 4px
+<style>
 
-.q-tab__label
-  font-weight: bolder
-
-.q-tab-panel
-  padding: 0
 </style>
