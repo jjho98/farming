@@ -25,27 +25,35 @@
     </div>
 
     <!-- 최근 주소 또는 검색 결과 -->
-    <div v-if="(searchResults && address) || (!address && addressHistories)" class="container q-pa-md">
+    <div v-if="(searchResults.length && address) || (!address && addressHistories.length)" class="container q-pa-md">
       <!-- 검색 결과 -->
-      <div v-show="searchResults && address">
+      <div v-show="searchResults.length && address">
         <q-list  separator padding>
-          <q-item v-ripple clickable class="q-gutter-y-xs not-flex" v-for="(result, index) in searchResults" :key="index" @click="test(result)">
-            <q-item-label>{{ result.bdNm ? result.bdNm : result.jibunAddr }}</q-item-label>
-            <q-item-label caption>{{ result.jibunAddr }}</q-item-label>
-            <q-badge class="float-left badge" outline color="secondary" label="도로명" />
-            <q-item-label caption>{{ result.roadAddr }}</q-item-label>
+          <q-item v-ripple clickable v-for="(result, index) in searchResults" :key="index" @click="test(result)">
+            <q-item-section class="q-gutter-y-xs not-flex ">
+              <q-item-label>{{ result.bdNm ? result.bdNm : result.jibunAddr }}</q-item-label>
+              <q-item-label caption>{{ result.jibunAddr }}</q-item-label>
+              <q-badge class="float-left badge" outline color="secondary" label="도로명" />
+              <q-item-label caption>{{ result.roadAddr }}</q-item-label>
+            </q-item-section>
           </q-item>
         </q-list>
       </div>
 
       <!-- 최근 주소들 -->
-      <div v-show="!address && addressHistories">
+      <div v-show="!address && addressHistories.length">
+        <span class="text-weight-bolder">최근</span>
+
         <q-list  separator padding>
-          <span class="text-weight-bolder">최근</span>
-          <q-item v-ripple clickable class="q-gutter-y-xs not-flex" v-for="(item, index) in addressHistories" :key="index">
+          <q-item v-ripple clickable v-for="(item, index) in addressHistories" :key="index">
+            <q-item-section class="q-gutter-y-xs not-flex ">
               <q-item-label caption>{{ item.jibunAddr }}</q-item-label>
               <q-badge class="float-left badge" outline color="secondary" label="도로명" />
               <q-item-label caption>{{ item.roadAddr }}</q-item-label>
+            </q-item-section>
+            <q-item-section side>
+              <q-btn flat dense icon="clear" size="10px" @click="deleteHistory(item)"/>
+            </q-item-section>
           </q-item>
         </q-list>
       </div>
@@ -69,8 +77,8 @@ export default {
       addressRules: [
         val => this.checkSearchWord(val) || '특수문자를 사용하지 말아주세요'
       ],
-      searchResults: null,
-      addressHistories: null,
+      searchResults: [],
+      addressHistories: [],
     }
   },
   methods: {
@@ -80,18 +88,18 @@ export default {
     onClick() {
 
     },
+    deleteHistory(item) {
+      this.addressHistories.splice(this.addressHistories.findIndex((elem) => elem.jibunAddr == item.jibunAddr && elem.roadAddr == item.roadAddr), 1)
+      this.$q.localStorage.set('addressHistories', this.addressHistories)
+    },
     test(item) {
-      if (!this.addressHistories) {
-        this.addressHistories = []
-      }
       const { jibunAddr, roadAddr } = item
-      this.addressHistories.push({ jibunAddr, roadAddr })
+      this.addressHistories.unshift({ jibunAddr, roadAddr })
       this.$q.localStorage.set('addressHistories', this.addressHistories)
     },
     searchAddress() {
       axios.get('https://www.juso.go.kr/addrlink/addrLinkApi.do', {
         params: {
-          // 나중에 발급받은 키는 .env에서 관리
           confmKey: process.env.JUSO_KEY,
           keyword: this.address,
           resultType: 'json',
@@ -157,5 +165,6 @@ export default {
   height: 100%
 .here
   width: 100%
-
+.q-item
+  padding: 12px 0
 </style>>
