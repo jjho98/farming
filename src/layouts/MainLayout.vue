@@ -5,15 +5,7 @@
 
     <q-page-container>
       <q-page>
-        <q-tabs v-model="tab" align="justify" active-color="secondary" indicator-color="secondary" class="bg-white shadow-bottom">
-          <q-route-tab :to="{name: `${menu.name}Index`}" exact replace :label="menu.label" :name="menu.name" v-for="(menu, index) in menus" :key="index"/>
-        </q-tabs>
-
-        <q-tab-panels v-model="tab" animated keep-alive swipeable @before-transition="replaceRoute">
-          <q-tab-panel :name="menu.name" v-for="(menu, index) in menus" :key="index">
-            <router-view/>
-          </q-tab-panel>
-        </q-tab-panels>
+        <tab-panels-container :tabs="menus" @changeTab="onChange"/>
       </q-page>
     </q-page-container>
 
@@ -31,10 +23,10 @@ export default {
   components: {
     MainHeader: defineAsyncComponent(() => import('components/MainHeader.vue')),
     MainFooter: defineAsyncComponent(() => import('components/MainFooter.vue')),
+    TabPanelsContainer: defineAsyncComponent(() => import('components/TabPanelsContainer.vue')),
   },
   data() {
     return {
-      tab: '',
       menus: [
         {
           label: '배달',
@@ -47,16 +39,9 @@ export default {
       ],
     }
   },
-
-  watch: {
-    tab: function(val) {
-      const menu = this.menus.find(menu => menu.name === val)
-      this.changeMenu(menu)
-    }
-  },
   methods: {
-    replaceRoute(newTab, oldTab) {
-      this.$router.replace({name: `${newTab}Index`})
+    onChange(item) {
+      this.changeMenu(item)
     },
     ...mapMutations('choices', [
       'changeMenu',

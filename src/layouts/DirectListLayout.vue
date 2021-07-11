@@ -5,16 +5,7 @@
 
     <q-page-container>
       <q-page>
-        <q-tabs v-model="tab" align="justify" active-color="secondary" indicator-color="secondary" class="bg-white shadow-bottom">
-          <q-route-tab :to="{path: `/direct/${category.name}`}" exact replace :label="category.label" 
-            :name="category.name" v-for="(category, index) in categories" :key="index"/>
-        </q-tabs>
-
-        <q-tab-panels v-model="tab" animated keep-alive swipeable @before-transition="replaceRoute">
-          <q-tab-panel :name="category.name" v-for="(category, index) in categories" :key="index">
-            <router-view/>
-          </q-tab-panel>
-        </q-tab-panels>
+        <tab-panels-container :tabs="categories" @changeTab="onChange"/>
       </q-page>
     </q-page-container>
 
@@ -32,26 +23,16 @@ export default {
   components: {
     BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
     MainFooter: defineAsyncComponent(() => import('components/MainFooter.vue')),
-  },
-  data() {
-    return {
-      tab: '',
-    }
+    TabPanelsContainer: defineAsyncComponent(() => import('components/TabPanelsContainer.vue')),
   },
   computed: {
     ...mapState('categories', {
       categories: 'directCategories',
     })
   },
-  watch: {
-    tab: function(val) {
-      const category = this.categories.find(category => category.name === val)
-      this.changeCategory(category)
-    }
-  },
   methods: {
-    replaceRoute(newTab, oldTab) {
-      this.$router.replace({path: `/direct/${newTab}`})
+    onChange(item) {
+      this.changeCategory(item)
     },
     ...mapMutations('choices', [
       'changeCategory',
