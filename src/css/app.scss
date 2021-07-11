@@ -28,6 +28,13 @@ body {
 
 .not-flex {
   display: block;
+  padding: 10px 0 10px 0;
+}
+
+.badge {
+  width: 50px;
+  height: 1.2em;
+  margin-right: 0.5em;
 }
 // /* HTML5 display-role reset for older browsers */
 

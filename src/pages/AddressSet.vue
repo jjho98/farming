@@ -1,37 +1,57 @@
 <template>
   <back-header label="주소 설정" class="shadow-bottom" />
-  <div class="container q-pa-md q-gutter-y-md ">
-    <q-form
-      ref="addressForm"
-      @submit.prevent="onSubmit"
-    >
-      <div>
-        <q-input outlined v-model="address" lazy-rules :rules="addressRules" name="addreas" label="주소를 입력해주세요" color="secondary" clearable>
-          <template v-slot:prepend>
-            <q-icon name="place" />
-          </template>
-          <template v-slot:after>
-            <q-btn push color="secondary" icon="search" class="search" @click="searchAddress" />
-          </template>
-        </q-input>
+  <div class="q-gutter-y-md">
+
+    <!-- 검색 폼 -->
+    <div class="container q-pa-md q-gutter-y-md ">
+      <q-form
+        ref="addressForm"
+        @submit.prevent="onSubmit"
+      >
+        <div>
+          <q-input outlined v-model="address" lazy-rules :rules="addressRules" name="addreas" label="주소를 입력해주세요" color="secondary" 
+          clearable @keyup.enter="searchAddress">
+            <template v-slot:prepend>
+              <q-icon name="place" />
+            </template>
+            <template v-slot:after>
+              <q-btn push color="secondary" icon="search" class="search" @click="searchAddress" />
+            </template>
+          </q-input>
+        </div>
+
+        <q-btn outline color="secondary" icon="my_location" label="현재 위치로 설정" class="here" @click="onClick" />
+      </q-form>
+    </div>
+
+    <!-- 최근 주소 또는 검색 결과 -->
+    <div v-if="(searchResults && address) || (!address && addressHistories)" class="container q-pa-md">
+      <!-- 검색 결과 -->
+      <div v-show="searchResults && address">
+        <q-list  separator padding>
+          <q-item v-ripple clickable class="q-gutter-y-xs not-flex" v-for="(result, index) in searchResults" :key="index" @click="test(result)">
+            <q-item-label>{{ result.bdNm ? result.bdNm : result.jibunAddr }}</q-item-label>
+            <q-item-label caption>{{ result.jibunAddr }}</q-item-label>
+            <q-badge class="float-left badge" outline color="secondary" label="도로명" />
+            <q-item-label caption>{{ result.roadAddr }}</q-item-label>
+          </q-item>
+        </q-list>
       </div>
 
-      <q-btn outline color="secondary" icon="my_location" label="현재 위치로 설정" class="here" @click="onClick" />
-    </q-form>
+      <!-- 최근 주소들 -->
+      <div v-show="!address && addressHistories">
+        <q-list  separator padding>
+          <span class="text-weight-bolder">최근</span>
+          <q-item v-ripple clickable class="q-gutter-y-xs not-flex" v-for="(item, index) in addressHistories" :key="index">
+              <q-item-label caption>{{ item.jibunAddr }}</q-item-label>
+              <q-badge class="float-left badge" outline color="secondary" label="도로명" />
+              <q-item-label caption>{{ item.roadAddr }}</q-item-label>
+          </q-item>
+        </q-list>
+      </div>
+    
+    </div>
   </div>
-
-  <q-scroll-area v-show="searchResults" style="height: 700px" class="container">
-    <q-list  separator padding>
-      <q-item v-ripple clickable class="not-flex" v-for="(result, index) in searchResults" :key="index">
-        <q-item-section>
-          <q-item-label>{{ result.bdNm }}</q-item-label>
-          <q-item-label caption>{{ result.jibunAddr }}</q-item-label>
-          <q-badge class="float-left" outline color="secondary" label="도로명" />
-          <q-item-label caption>{{ result.roadAddr }}</q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
-  </q-scroll-area>
 
 </template>
 
@@ -50,6 +70,7 @@ export default {
         val => this.checkSearchWord(val) || '특수문자를 사용하지 말아주세요'
       ],
       searchResults: null,
+      addressHistories: null,
     }
   },
   methods: {
@@ -58,6 +79,14 @@ export default {
     },
     onClick() {
 
+    },
+    test(item) {
+      if (!this.addressHistories) {
+        this.addressHistories = []
+      }
+      const { jibunAddr, roadAddr } = item
+      this.addressHistories.push({ jibunAddr, roadAddr })
+      this.$q.localStorage.set('addressHistories', this.addressHistories)
     },
     searchAddress() {
       axios.get('https://www.juso.go.kr/addrlink/addrLinkApi.do', {
@@ -69,7 +98,6 @@ export default {
         }
       })
       .then(res => {
-        console.log(res)
         if (res.data.results.common.errorMessage !== "정상") {
           this.$q.notify({
             message: res.data.results.common.errorMessage,
@@ -118,8 +146,9 @@ export default {
       return true ;
     }
   },
-
-
+  created() {
+    this.addressHistories = this.$q.localStorage.getItem('addressHistories')
+  }
 }
 </script>
 
@@ -128,4 +157,5 @@ export default {
   height: 100%
 .here
   width: 100%
+
 </style>>
