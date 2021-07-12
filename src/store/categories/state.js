@@ -41,7 +41,16 @@ export default function() {
         label: '분류8',
         name: 'cate8'
       },
-
+      {
+        img: 'horizontal_rule',
+        label: '',
+        name: ''
+      },
+      {
+        img: 'horizontal_rule',
+        label: '',
+        name: ''
+      },
     ],
     directCategories: [
       {
@@ -84,7 +93,16 @@ export default function() {
         label: '분류8',
         name: 'fruits8'
       },
-
+      {
+        img: 'horizontal_rule',
+        label: '',
+        name: 'fruits'
+      },
+      {
+        img: 'horizontal_rule',
+        label: '',
+        name: 'fruits'
+      },
     ]
   }
 }
