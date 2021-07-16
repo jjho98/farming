@@ -18,7 +18,7 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .q-tab__content.column
-  flex-wrap: nowrap !important
+  flex-wrap: nowrap
 </style>>
