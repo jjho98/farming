@@ -1,7 +1,11 @@
 <template>
-  <div class="flex">
-    <list-item v-for="(item, index) in items" :key="index"/>
+  <div v-if="$q.screen.gt.xs" class="flex flex-center q-gutter-lg">
+    <list-item :item="item" v-for="(item, index) in items" :key="index"/>
   </div>
+
+  <q-list separator v-if="$q.screen.xs">
+    <list-item :item="item" v-for="(item, index) in items" :key="index"/>
+  </q-list>
 </template>
 
 <script>
@@ -25,7 +29,9 @@ export default {
   },
   async created() {
     try {
-      this.items = await api.get(`/delivery/${this.$route.params.category}`)
+      const res = await api.get(`/delivery/${this.$route.params.category}`)
+      this.items = res.data.rows
+      console.log(this.items)
     } catch(err) {
       console.error(err)
     }

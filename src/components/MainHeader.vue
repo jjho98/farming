@@ -1,5 +1,5 @@
 <template>
-  <q-header class="text-black bg-white" height-hint="98">
+  <q-header reveal class="text-black bg-white" height-hint="98">
     <q-toolbar>
       <q-btn flat dense icon="menu" @click="onClick" class="on-left"/>
       <address-box/>

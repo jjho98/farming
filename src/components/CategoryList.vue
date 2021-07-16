@@ -1,5 +1,5 @@
 <template>
-  <div class="grid  container">
+  <div class="grid  container q-px-sm">
     <category-item :img="item.img" :label="item.label" v-for="(item, index) in categories" :key="index" @click="onClick(item)"/>
   </div>
 </template>
