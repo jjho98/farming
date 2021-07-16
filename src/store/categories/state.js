@@ -3,8 +3,8 @@ export default function() {
     deliveryCategories: [
       {
         img: 'category',
-        label: '분류1',
-        name: 'cate1'
+        label: '채소',
+        name: 'vegetable'
       },
       {
         img: 'category',
