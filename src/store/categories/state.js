@@ -1,5 +1,5 @@
 export default function() {
-  return {
+  return { 
     deliveryCategories: [
       {
         img: 'category',
