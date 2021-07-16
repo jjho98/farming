@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center cursor-pointer item">
+  <div class="text-center q-gutter-y-xs cursor-pointer item">
     <div>
       <span class="material-icons">
         {{ img }}
@@ -28,6 +28,7 @@ export default {
   -webkit-transition: font-size 1s
   transition: font-size 0.1s
   padding: 10px
+
 .item:active
   font-size: 80%
 
