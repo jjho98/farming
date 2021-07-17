@@ -8,7 +8,7 @@ import { mapState } from 'vuex'
 
 export default {
   components: {
-    CategoryList: defineAsyncComponent(() => import('src/components/CategoryList.vue')),
+    CategoryList: defineAsyncComponent(() => import('components/CategoryList.vue')),
   },
   data() {
     return {

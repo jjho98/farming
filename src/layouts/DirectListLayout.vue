@@ -19,7 +19,6 @@ import { defineAsyncComponent } from 'vue'
 import { mapState, mapMutations} from 'vuex'
 
 export default {
-  name: 'MainLayout',
   components: {
     BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
     MainFooter: defineAsyncComponent(() => import('components/MainFooter.vue')),

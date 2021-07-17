@@ -45,15 +45,6 @@ export default {
       }
     }
   },
-  // async created() {
-  //   try {
-  //     const res = await api.get(`/delivery/${this.$route.params.category}?index=0`)
-  //     this.items.push(...res.data.rows)
-  //     console.log(this.items)
-  //   } catch(err) {
-  //     console.error(err)
-  //   }
-  // }
 }
 </script>
 

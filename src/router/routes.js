@@ -34,6 +34,14 @@ const routes = [
       { name: 'addressSet', path: 'address', component: () => import('pages/AddressSet.vue')},
     ]
   },
+  {
+    name: 'auth',
+    path: '/auth',
+    component: () => import('layouts/FooterLayout.vue'),
+    children: [
+      { name: 'signIn', path: 'signin', component: () => import('pages/SignIn.vue')}
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it

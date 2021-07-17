@@ -17,7 +17,6 @@
 <script>
 import { defineAsyncComponent } from 'vue'
 import { mapMutations} from 'vuex'
-
 export default {
   name: 'MainLayout',
   components: {
@@ -53,10 +52,8 @@ export default {
 <style lang="sass">
 .q-tab__indicator
   height: 4px
-
 .q-tab__label
   font-weight: bolder
-
 .q-tab-panel
   padding: 0
 </style>

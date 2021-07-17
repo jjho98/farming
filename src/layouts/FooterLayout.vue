@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR fFf">
 
     <q-page-container>
-      <q-page>
+      <q-page class="flex flex-center">
         <router-view/>
       </q-page>
     </q-page-container>
@@ -21,3 +21,8 @@ export default {
   },
 }
 </script>
+
+<style lang="sass" scoped>
+.q-page-container
+  background-color: white
+</style>
