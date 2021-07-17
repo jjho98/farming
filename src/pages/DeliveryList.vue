@@ -3,7 +3,7 @@
     <list-item :item="item" v-for="(item, index) in items" :key="index"/>
   </div>
 
-  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body">
+  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" initial-index="-1">
     <q-list separator v-if="$q.screen.xs">
       <list-item :item="item" v-for="item in items" :key="item.id"/>
       <template v-slot:loading>
@@ -45,15 +45,15 @@ export default {
       }
     }
   },
-  async created() {
-    try {
-      const res = await api.get(`/delivery/${this.$route.params.category}?index=0`)
-      this.items.push(...res.data.rows)
-      console.log(this.items)
-    } catch(err) {
-      console.error(err)
-    }
-  }
+  // async created() {
+  //   try {
+  //     const res = await api.get(`/delivery/${this.$route.params.category}?index=0`)
+  //     this.items.push(...res.data.rows)
+  //     console.log(this.items)
+  //   } catch(err) {
+  //     console.error(err)
+  //   }
+  // }
 }
 </script>
 
