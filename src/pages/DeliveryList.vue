@@ -1,9 +1,9 @@
 <template>
-  <div v-if="$q.screen.gt.xs" class="flex flex-center q-gutter-lg">
-    <list-item :item="item" v-for="(item, index) in items" :key="index"/>
-  </div>
+  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" :initial-index="-1">
+    <div v-if="$q.screen.gt.xs" class="flex flex-center q-gutter-lg">
+      <list-item :item="item" v-for="(item, index) in items" :key="index"/>
+    </div>
 
-  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" initial-index="-1">
     <q-list separator v-if="$q.screen.xs">
       <list-item :item="item" v-for="item in items" :key="item.id"/>
       <template v-slot:loading>
@@ -21,7 +21,7 @@ import api from '../api'
 
 export default {
   components: {
-    ListItem: defineAsyncComponent(() => import('../components/ListItem.vue'))
+    ListItem: defineAsyncComponent(() => import('components/ListItem.vue'))
   },
   data() {
     return {

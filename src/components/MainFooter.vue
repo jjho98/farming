@@ -1,5 +1,5 @@
 <template>
-  <q-footer elevated class="bg-white text-black">
+  <q-footer bordered class="bg-white text-black">
     <q-tabs dense mobile-arrows align="justify" indicator-color="white">
       <q-tab class="col" icon="favorite_border" label="찜"></q-tab>
       <q-tab class="col" icon="content_paste" label="주문내역"></q-tab>

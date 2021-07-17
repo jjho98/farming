@@ -6,17 +6,8 @@
       <div class="text-h6">{{ item.name }}</div>
       <div class="text-subtitle2 price">{{ item.displayPrice }}원</div>
     </q-card-section>
-    <q-card-section>
-      <q-rating
-        :model-value="parseFloat(item.averageRate)"
-        :color="item.averageRate === '0.0' ? 'grey' : 'yellow'"
-        icon-selected="star"
-        icon-half="star_half"
-        max="5"
-        no-dimming
-        readonly
-      />
-      <span>{{ item.averageRate }}</span>
+    <q-card-section class="row">
+      <rate-display :item="item" />
     </q-card-section>
   </q-card>
 
@@ -28,29 +19,21 @@
     <q-item-section>
       <div class="text-subtitle1">{{ item.name }}</div>
       <div class="text-subtitle2 text-bold price">{{ item.displayPrice }}원</div>
-      <div class="row">
-        <q-rating
-        :model-value="parseFloat(item.averageRate)"
-        color="grey"
-        color-selected="warning"
-        color-half="warning"
-        icon="star"
-        icon-half="star_half"
-        max="5"
-        readonly
-        />
-        <span v-if="item.averageRate !== '0.0'" class="q-pl-xs text-subtitle2">{{ item.averageRate }}</span>
-      </div>
-      
+      <rate-display :item="item" />
     </q-item-section>
   </q-item>
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
+
 export default {
   props: [
     'item'
   ],
+  components: {
+    RateDisplay: defineAsyncComponent(() => import('components/RateDisplay.vue'))
+  }
 }
 </script>
 
@@ -59,5 +42,4 @@ export default {
   color: red
 .my-card
   width: 250px
-
 </style>>
