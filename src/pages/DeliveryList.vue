@@ -3,14 +3,20 @@
     <list-item :item="item" v-for="(item, index) in items" :key="index"/>
   </div>
 
-  <q-list separator v-if="$q.screen.xs">
-    <list-item :item="item" v-for="(item, index) in items" :key="index"/>
-  </q-list>
+  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body">
+    <q-list separator v-if="$q.screen.xs">
+      <list-item :item="item" v-for="item in items" :key="item.id"/>
+      <template v-slot:loading>
+        <div class="row justify-center q-my-md">
+          <q-spinner-dots color="secondary" size="40px" />
+        </div>
+      </template>
+    </q-list>
+  </q-infinite-scroll>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
-import {mapState} from 'vuex'
 import api from '../api'
 
 export default {
@@ -19,18 +25,30 @@ export default {
   },
   data() {
     return {
-      items: []
+      items: [],
     }
   },
-  computed: {
-    ...mapState('categories', [
-      'deliveryCategories'
-    ])
+  methods: {
+    async fetchMore(index, done) {
+      try {
+        const res = await api.get(`/delivery/${this.$route.params.category}?index=${index}`)
+        console.log(res)
+        const fetchedItems = res.data.rows
+        this.items.push(...fetchedItems)
+        if (fetchedItems.length < 10) {
+          done(true)
+        } else {
+          done()
+        }
+      } catch(err) {
+        console.error(err)
+      }
+    }
   },
   async created() {
     try {
-      const res = await api.get(`/delivery/${this.$route.params.category}`)
-      this.items = res.data.rows
+      const res = await api.get(`/delivery/${this.$route.params.category}?index=0`)
+      this.items.push(...res.data.rows)
       console.log(this.items)
     } catch(err) {
       console.error(err)
@@ -39,6 +57,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="sass">
 
-</style>
+</style>>

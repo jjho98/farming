@@ -10,13 +10,13 @@
       <q-rating
         :model-value="parseFloat(item.averageRate)"
         :color="item.averageRate === '0.0' ? 'grey' : 'yellow'"
-        icon="star_border"
         icon-selected="star"
         icon-half="star_half"
         max="5"
         no-dimming
         readonly
       />
+      <span>{{ item.averageRate }}</span>
     </q-card-section>
   </q-card>
 
@@ -27,17 +27,21 @@
     </q-item-section>
     <q-item-section>
       <div class="text-subtitle1">{{ item.name }}</div>
-      <div class="text-subtitle2 price">{{ item.displayPrice }}원</div>
-      <q-rating
+      <div class="text-subtitle2 text-bold price">{{ item.displayPrice }}원</div>
+      <div class="row">
+        <q-rating
         :model-value="parseFloat(item.averageRate)"
-        :color="item.averageRate === '0.0' ? 'grey' : 'yellow'"
-        icon="star_border"
-        icon-selected="star"
+        color="grey"
+        color-selected="warning"
+        color-half="warning"
+        icon="star"
         icon-half="star_half"
         max="5"
-        no-dimming
         readonly
-      />
+        />
+        <span v-if="item.averageRate !== '0.0'" class="q-pl-xs text-subtitle2">{{ item.averageRate }}</span>
+      </div>
+      
     </q-item-section>
   </q-item>
 </template>
@@ -55,4 +59,5 @@ export default {
   color: red
 .my-card
   width: 250px
+
 </style>>
