@@ -1,3 +1,4 @@
+import { Cookies } from 'quasar'
 
 const routes = [
   {
@@ -32,6 +33,14 @@ const routes = [
     component: () => import('layouts/FooterLayout.vue'),
     children: [
       { name: 'addressSet', path: 'address', component: () => import('pages/AddressSet.vue')},
+      { name: 'my', path: 'my', component: () => import('pages/MyInfo.vue'),
+        beforeEnter: (to, from, next) => {
+          if (!Cookies.has('role')) {
+            next({name: 'login'})
+          } else {
+            next()
+          }
+        }},
     ]
   },
   {
@@ -39,7 +48,7 @@ const routes = [
     path: '/auth',
     component: () => import('layouts/FooterLayout.vue'),
     children: [
-      { name: 'signIn', path: 'signin', component: () => import('pages/SignIn.vue')}
+      { name: 'login', path: 'login', component: () => import('pages/login.vue') },
     ]
   },
 

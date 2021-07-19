@@ -1,5 +1,5 @@
 <template>
-  <sign-in-form/>
+  <login-form/>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ import { defineAsyncComponent } from 'vue'
 
 export default {
   components: {
-    SignInForm: defineAsyncComponent(() => import('components/SignInForm.vue'))
+    LoginForm: defineAsyncComponent(() => import('components/loginForm.vue'))
   }
 }
 </script>
