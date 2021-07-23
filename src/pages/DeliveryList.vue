@@ -17,7 +17,6 @@
 
 <script>
 import { defineAsyncComponent } from 'vue'
-import api from '../api'
 
 export default {
   components: {
@@ -29,10 +28,10 @@ export default {
     }
   },
   methods: {
+    // infinite scroll 때문에 created에서 fetch 하지 않음
     async fetchMore(index, done) {
       try {
-        const res = await api.get(`/delivery/${this.$route.params.category}?index=${index}`)
-        console.log(res)
+        const res = await this.$api.get(`${this.$route.path}?index=${index}`)
         const fetchedItems = res.data.rows
         this.items.push(...fetchedItems)
         if (fetchedItems.length < 10) {

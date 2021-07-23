@@ -1,9 +1,9 @@
 <template>
   <div class="container q-pa-xl">
-    <q-form class="q-gutter-md" @submit.prevent>
+    <q-form class="q-gutter-md" ref="form" >
       <div class="text-center text-h6 text-bold">로그인</div>
-      <q-input outlined v-model="email" type="email" label="이메일" name="email" />
-      <q-input outlined v-model="password" type="password" label="비밀번호" name="password" />
+      <q-input outlined v-model="email" type="email" label="이메일" :rules="[ val => !!val || '이메일을 입력해주세요']" />
+      <q-input outlined v-model="password" type="password" label="비밀번호" :rules="[ val => !!val || '비밀번호를 입력해주세요']" />
       <div class="q-gutter-y-md">
         <q-btn unelevated label="로그인" color="primary" class="auth-btn bg-black" @click="localLogin"/>
         <q-btn unelevated label="카카오 로그인" color="primary" class="auth-btn bg-yellow text-black" @click="kakaoLogin" />
@@ -25,9 +25,6 @@
 <script>
 import {dom} from 'quasar'
 const {width} = dom
-import api from '../api'
-import jwtDecode from "jwt-decode"
-import {Cookies} from 'quasar'
  
 export default {
   data() {
@@ -39,32 +36,40 @@ export default {
   },
   methods: {
     async localLogin() {
-      // seller와 customer 분리 필요
-      const res = await api.post('/auth/login/seller', {
-        email: this.email,
-        password: this.password,
+      // form 유효성 검증
+      this.$refs.form.validate().then(async (success) => {
+        if (success) {
+          // form이 유효하면
+          const res = await this.$api.post('/login', {
+            email: this.email,
+            password: this.password,
+          })
+
+          if (res.status === (404 || 403)) {
+            return this.$q.notify({
+              message: res.data.message,
+              icon: 'error_outline',
+              position: 'center',
+              closeBtn: '닫기',
+            })
+          }
+          if (res.status === 200) {
+            return this.$router.back()
+          }
+        } 
+        else {
+          // form이 유효성 검증 실패
+          this.$q.notify({
+              message: '전부 작성해주세요',
+              color: 'negative',
+              icon: 'error_outline',
+              position: 'top',
+              closeBtn: '닫기',
+            })
+        }
       })
-      if (res.status === (404 || 403)) {
-        this.$q.notify({
-          message: res.data.message,
-          icon: 'error_outline',
-          position: 'center',
-          closeBtn: '닫기',
-        })
-      } else {
-        // accessToken, refreshToken 쿠키에 저장
-        const { accessToken, refreshToken } = res.data
-        api.defaults.headers.common.Authorization = `Barer ${accessToken}`
 
-        console.log(jwtDecode(accessToken))
-        const { nickname, role } = jwtDecode(accessToken)
-        Cookies.set('nickname', nickname)
-        Cookies.set('role', role)
-        Cookies.set('accessToken', accessToken, {expires: '30m', httpOnly: true})
-        Cookies.set('refreshToken', refreshToken, {expires: '14d', httpOnly: true})
-
-        this.$router.back()
-      }
+      
     },
     kakaoLogin() {
 

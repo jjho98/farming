@@ -69,7 +69,8 @@ import axios from 'axios'
 
 export default {
   components: { 
-    BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue'))
+    BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
+    // AddressItem: defineAsyncComponent(() => import('components/AddressItem.vue')),
   },
   data() {
     return {

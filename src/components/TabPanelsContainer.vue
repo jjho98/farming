@@ -1,12 +1,16 @@
 <template>
   <q-tabs v-model="tab" align="justify" active-color="secondary" indicator-color="secondary" class="bg-white shadow-bottom">
-    <q-route-tab :to="{path: makePath(item.name)}" exact replace :label="item.label" 
+    <q-route-tab :to="{name: 'deliveryList', params: { category: item.name }}" exact replace :label="item.label" 
       :name="item.name" v-for="(item, index) in tabs" :key="index"/>
   </q-tabs>
 
-  <q-tab-panels v-model="tab" animated keep-alive swipeable @before-transition="replaceRoute">
+  <q-tab-panels v-model="tab" keep-alive animated swipeable @update:model-value="replaceRoute">
     <q-tab-panel :name="item.name" v-for="(item, index) in tabs" :key="index">
-      <router-view/>
+      <!-- 라우터 주소가 바뀌기 전에 router-view에 전달되는 컴포넌트의 created 훅이 먼저 호출됨 -->
+      <!-- 그래서 router-view에 key가 필요 -->
+      <keep-alive>
+        <router-view :key="$route.path"/>
+      </keep-alive>
     </q-tab-panel>
   </q-tab-panels>
 </template>
@@ -24,21 +28,10 @@ export default {
       tab: '',
     }
   },
-  watch: {
-    tab: function(val) {
-      const item = this.tabs.find(item => item.name === val)
-      this.$emit('changeTab', item)
-      // this.changeCategory(item)
-    }
-  },
   methods: {
-    replaceRoute(newTab, oldTab) {
-      this.$router.replace({path: this.makePath(newTab)})
-    },
-    makePath(name) {
-      let pathSplit = this.$router.currentRoute._value.fullPath.split('/')
-      pathSplit[pathSplit.length - 1] = name
-      return pathSplit.join('/')
+    //  when tab changed
+    replaceRoute(newTab, _) {
+      this.$router.replace({name: 'deliveryList', params: { category: newTab }})
     },
   },
 }

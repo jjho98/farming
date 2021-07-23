@@ -21,11 +21,6 @@
     <q-tab-panel :name="menus[1].name">
       <category-list :categories="directCategories" />
     </q-tab-panel>
-
-    <q-tab-panel name="movies">
-      <div class="text-h6">Movies</div>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    </q-tab-panel>
   </q-tab-panels>
 </template>
 

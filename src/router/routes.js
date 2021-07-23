@@ -34,13 +34,14 @@ const routes = [
     children: [
       { name: 'addressSet', path: 'address', component: () => import('pages/AddressSet.vue')},
       { name: 'my', path: 'my', component: () => import('pages/MyInfo.vue'),
-        beforeEnter: (to, from, next) => {
-          if (!Cookies.has('role')) {
-            next({name: 'login'})
-          } else {
-            next()
-          }
-        }},
+        // beforeEnter: (to, from, next) => {
+        //   if (!Cookies.has('role')) {
+        //     next({name: 'login'})
+        //   } else {
+        //     next()
+        //   }
+        // }
+      },
     ]
   },
   {
