@@ -4,7 +4,7 @@
     <q-img :src="'http://localhost:3000/img/' + item.thumbnail"/>
     <q-card-section>
       <div class="text-h6">{{ item.name }}</div>
-      <div class="text-subtitle2 price">{{ item.displayPrice }}원</div>
+      <div class="text-subtitle2 price">{{ $filters.toCurrency(item.displayPrice) }}원</div>
     </q-card-section>
     <q-card-section class="row">
       <rate-display :item="item" />
@@ -18,7 +18,7 @@
     </q-item-section>
     <q-item-section>
       <div class="text-subtitle1">{{ item.name }}</div>
-      <div class="text-subtitle2 text-bold price">{{ item.displayPrice }}원</div>
+      <div class="text-subtitle2 text-bold price">{{ $filters.toCurrency(item.displayPrice) }}원</div>
       <rate-display :item="item" />
     </q-item-section>
   </q-item>
