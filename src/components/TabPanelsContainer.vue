@@ -1,6 +1,6 @@
 <template>
   <q-tabs v-model="tab" align="justify" active-color="secondary" indicator-color="secondary" class="bg-white shadow-bottom">
-    <q-route-tab :to="{name: 'deliveryList', params: { category: item.name }}" exact replace :label="item.label" 
+    <q-route-tab :to="{path: makePath(item.name)}" exact replace :label="item.label" 
       :name="item.name" v-for="(item, index) in tabs" :key="index"/>
   </q-tabs>
 
@@ -36,9 +36,16 @@ export default {
   },
   methods: {
     //  when tab changed
-    replaceRoute(newTab, _) {
-      this.$router.replace({name: 'deliveryList', params: { category: newTab }})
+    replaceRoute(newTab, oldTab) {
+      this.$router.replace({path: this.makePath(newTab)})
     },
+    makePath(name) {
+      let pathSplit = this.$router.currentRoute._value.fullPath.split('/')
+      pathSplit[pathSplit.length - 1] = name
+      return pathSplit.join('/')
+    },
+
+
     scrolled(details) {
       // 위로 스크롤 시 탭 보여주기
       if (details.direction === 'up') {
