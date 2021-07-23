@@ -5,12 +5,18 @@
   </q-tabs>
 
   <q-tab-panels v-model="tab" keep-alive animated swipeable @update:model-value="replaceRoute">
-    <q-tab-panel :name="item.name" v-for="(item, index) in tabs" :key="index">
+    <q-tab-panel class="scroll" @scroll="scrolled"  :name="item.name" v-for="(item, index) in tabs" :key="index">
       <!-- 라우터 주소가 바뀌기 전에 router-view에 전달되는 컴포넌트의 created 훅이 먼저 호출됨 -->
       <!-- 그래서 router-view에 key가 필요 -->
-      <keep-alive>
+      <router-view v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" :key="$route.path"/>
+        </keep-alive>
+      </router-view>
+
+      <!-- <keep-alive>
         <router-view :key="$route.path"/>
-      </keep-alive>
+      </keep-alive> -->
     </q-tab-panel>
   </q-tab-panels>
 </template>
@@ -33,6 +39,12 @@ export default {
     replaceRoute(newTab, _) {
       this.$router.replace({name: 'deliveryList', params: { category: newTab }})
     },
+    scrolled(details) {
+      // 위로 스크롤 시 탭 보여주기
+      if (details.direction === 'up') {
+        consol.log('scrolled up')
+      }
+    }
   },
 }
 </script>
