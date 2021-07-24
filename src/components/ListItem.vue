@@ -12,7 +12,7 @@
   </q-card>
 
   <!-- 모바일 크기 화면 -->
-  <q-item v-if="$q.screen.xs" clickable v-ripple>
+  <q-item v-if="$q.screen.xs" clickable v-ripple @click="clicked(item.id)">
     <q-item-section side>
       <q-img :src="'http://localhost:3000/img/' + item.thumbnail" ratio="1" width="100px"/>
     </q-item-section>
@@ -33,7 +33,12 @@ export default {
   ],
   components: {
     RateDisplay: defineAsyncComponent(() => import('components/RateDisplay.vue'))
-  }
+  },
+  methods: {
+    clicked(id) {
+      this.$emit('clicked', id)
+    }
+  },
 }
 </script>
 

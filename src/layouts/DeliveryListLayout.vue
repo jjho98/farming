@@ -26,8 +26,8 @@ export default {
   },
   computed: {
     ...mapState('categories', {
-      categories: 'deliveryCategories',
-    })
+      categories: 'deliveryCategories'
+    }),
   },
   methods: {
     onChange(item) {

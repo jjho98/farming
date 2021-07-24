@@ -28,6 +28,14 @@ const routes = [
     ]
   },
   {
+    name: 'product',
+    path: '/product',
+    component: () => import('layouts/ProductLayout.vue'),
+    children: [
+      { name: 'productDetail', path: ':id', component: () => import('pages/ProductDetail.vue') },
+    ]
+  },
+  {
     name: 'tab',
     path: '/tab',
     component: () => import('layouts/FooterLayout.vue'),

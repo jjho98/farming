@@ -25,8 +25,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.keep-all
-  word-break: keep-all
+
 
 .main-card
   background-color: $grey-2

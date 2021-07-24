@@ -1,21 +1,25 @@
 <template>
   <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" :initial-index="-1">
+    <!-- pc 화면 -->
     <div v-if="$q.screen.gt.xs" class="flex flex-center q-gutter-lg">
-      <list-item :item="item" v-for="(item, index) in items" :key="index"/>
+      <list-item :item="item" v-for="(item, index) in items" :key="index" @clicked="routePush"/>
     </div>
 
+    <!-- 모바일 화면 -->
     <q-list separator v-if="$q.screen.xs">
-      <list-item :item="item" v-for="item in items" :key="item.id"/>
-      <template v-slot:loading>
-        <div class="row justify-center q-my-md">
-          <q-spinner-dots color="secondary" size="40px" />
-        </div>
-      </template>
+      <list-item :item="item" v-for="item in items" :key="item.id" @clicked="routePush"/>
     </q-list>
+
+    <!-- 무한 스크롤이 로딩 중일 때 -->
+    <template v-slot:loading v-if="isLoading">
+      <div class="row justify-center q-my-md">
+        <q-spinner-dots color="secondary" size="40px" />
+      </div>
+    </template>
   </q-infinite-scroll>
 
   <div v-if="isEmptyResult" class="container text-h6 q-pa-xl text-center keep-all">
-    <div class="text-center">(; ･`д･´)</div>
+    <div>(; ･`д･´)</div>
     해당 카테고리의 제품은 아직 등록된 게 없어요
   </div>
 </template>
@@ -31,12 +35,14 @@ export default {
     return {
       items: [],
       isEmptyResult: false,
+      isLoading: true,
     }
   },
   methods: {
     // infinite scroll 때문에 created에서 fetch 하지 않음
     async fetchMore(index, done) {
       try {
+        this.isLoading = true
         const res = await this.$api.get(`${this.$route.path}?index=${index}`)
         const fetchedItems = res.data.rows
         this.items.push(...fetchedItems)
@@ -49,15 +55,18 @@ export default {
         } else {
           done()
         }
+        this.isLoading = false
       } catch(err) {
         console.error(err)
       }
     },
+    routePush(id) {
+      this.$router.push({name: 'productDetail', params: {id}})
+    }
   },
 }
 </script>
 
 <style lang="sass">
-.keep-all
-  word-break: keep-all
+
 </style>>
