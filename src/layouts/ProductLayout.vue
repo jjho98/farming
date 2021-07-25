@@ -8,6 +8,8 @@
       </q-page>
     </q-page-container>
 
+    <!-- <router-view name="footer" /> -->
+    <product-footer/>
   </q-layout>
 </template>
 
@@ -17,7 +19,8 @@ import { defineAsyncComponent } from 'vue'
 export default {
   name: 'ProductLayout',
   components: {
-    BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue'))
+    BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
+    ProductFooter: defineAsyncComponent(() => import('components/ProductFooter.vue'))
   },
 }
 </script>

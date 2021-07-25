@@ -28,6 +28,9 @@
 import { defineAsyncComponent } from 'vue'
 
 export default {
+  emits: [
+    'clicked'
+  ],
   props: [
     'item'
   ],

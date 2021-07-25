@@ -1,6 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Loading } from 'quasar'
+import { setupCache } from 'axios-cache-adapter'
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -8,9 +9,18 @@ import { Loading } from 'quasar'
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
+
+const cache = setupCache({
+  maxAge: 30 * 60 * 1000,
+  debug: true,
+  exclude: {
+    query: false,
+  },
+})
 const api = axios.create({ 
   baseURL: '//localhost:3000/api/v1',
-  withCredentials: true
+  withCredentials: true,
+  adapter: cache.adapter,
 })
 
 

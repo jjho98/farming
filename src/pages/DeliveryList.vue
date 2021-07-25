@@ -1,4 +1,6 @@
 <template>
+  
+<!-- 인피니트 스크롤이 window의 위치를 파악하기 때문에 keep-alive애 의해 살아있는 탭도 같이 반응하는 문제  -->
   <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" :initial-index="-1">
     <!-- pc 화면 -->
     <div v-if="$q.screen.gt.xs" class="flex flex-center q-gutter-lg">
@@ -16,18 +18,21 @@
         <q-spinner-dots color="secondary" size="40px" />
       </div>
     </template>
+
+    <div v-if="isEmptyResult" class="container text-h6 q-pa-xl text-center keep-all">
+      <div>(; ･`д･´)</div>
+      해당 카테고리의 제품은 아직 등록된 게 없어요
+    </div>
   </q-infinite-scroll>
 
-  <div v-if="isEmptyResult" class="container text-h6 q-pa-xl text-center keep-all">
-    <div>(; ･`д･´)</div>
-    해당 카테고리의 제품은 아직 등록된 게 없어요
-  </div>
+  
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
 
 export default {
+  name: 'DeliveryList',
   components: {
     ListItem: defineAsyncComponent(() => import('components/ListItem.vue'))
   },
@@ -40,10 +45,11 @@ export default {
   },
   methods: {
     // infinite scroll 때문에 created에서 fetch 하지 않음
-    async fetchMore(index, done) {
+    async fetchMore(index) {
       try {
         this.isLoading = true
         const res = await this.$api.get(`${this.$route.path}?index=${index}`)
+        console.log(res)
         const fetchedItems = res.data.rows
         this.items.push(...fetchedItems)
         if (fetchedItems.length < 10) {
@@ -51,10 +57,11 @@ export default {
           if (!this.items.length && !fetchedItems.length) {
             this.isEmptyResult = true
           }
-          done(true)
-        } else {
-          done()
         }
+        //   done(true)
+        // } else {
+        //   done()
+        // }
         this.isLoading = false
       } catch(err) {
         console.error(err)
@@ -64,6 +71,15 @@ export default {
       this.$router.push({name: 'productDetail', params: {id}})
     }
   },
+  // created() {
+  //   this.fetchMore(0)
+  // },
+  activated() {
+    console.log('activated')
+  },
+  deactivated() {
+    console.log('deactivated')
+  }
 }
 </script>
 
