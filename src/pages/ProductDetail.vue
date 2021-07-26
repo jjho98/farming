@@ -1,5 +1,5 @@
 <template>
-  <div class="test" v-if="isLoaded">
+  <div  v-if="isLoaded">
     <q-parallax
       :speed="0.7"
       v-if="product"
@@ -21,7 +21,10 @@
 
     <div class="container text-center q-gutter-y-lg q-pa-lg keep-all">
       <div class="text-h5 text-bold">{{ product.summary }}</div>
-      <div class="text-subtitle1 q-pa-lg">{{ product.description }}</div>
+      <div class="text-subtitle1">{{ product.description }}</div>
+    </div>
+
+    <div class="q-gutter-y-xs">
       <q-img
         v-for="(imgUrl, index) in product.ProductImages" :key="index"
         :src="'http://localhost:3000/img/' + imgUrl.img"
@@ -30,11 +33,19 @@
         class="img"
       />
     </div>
+
+    <option-overlay/>
   </div>
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
+import {defineAsyncComponent} from 'vue'
+
 export default {
+  components: {
+    OptionOverlay: defineAsyncComponent(() => import('components/OptionOverlay.vue'))
+  },
   data() {
     return {
       product: null,
@@ -51,13 +62,19 @@ export default {
     this.product = res.data
     console.log(res)
     this.isLoaded = true
+    this.changeProduct(res.data)
   },
   activated() {
     console.log('activated')
   },
   deactivated() {
     console.log('deactivated')
-  }
+  },
+  methods: {
+    ...mapMutations('choices', [
+      'changeProduct'
+    ])
+  },
 }
 </script>
 

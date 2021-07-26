@@ -14,7 +14,7 @@
         </keep-alive>
       </router-view> -->
   
-      <router-view :key="$route.path"/>
+      <router-view/>
 
 
       <!-- <router-view v-slot="{ Component }">
@@ -43,7 +43,6 @@ export default {
     //  when tab changed
     replaceRoute(newTab) {
       console.log('here')
-      console.log(newTab, oldTab, 'request replace')
       this.$router.replace({path: this.makePath(newTab)})
     },
     makePath(name) {

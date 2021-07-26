@@ -3,7 +3,7 @@
     <back-header/>
 
     <q-page-container>
-      <q-page>
+      <q-page class="narrow">
         <router-view/>
       </q-page>
     </q-page-container>

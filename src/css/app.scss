@@ -42,19 +42,24 @@ body {
 }
 
 .keep-all {
-  word-break: keep-all
+  word-break: keep-all;
 }
 
 .width-50 {
-  width: 50%
+  width: 50%;
 }
 
 .width-90 {
-  width: 90%
+  width: 90%;
 }
 
 .width-100 {
-  width: 100%
+  width: 100%;
+}
+
+.narrow {
+  max-width: 1024px;
+  margin: 0 auto;
 }
  
 /* HTML5 display-role reset for older browsers */

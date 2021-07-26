@@ -25,6 +25,7 @@ module.exports = configure(function (ctx) {
       'i18n',
       'axios',
       'filters',
+      'screen',
     ],
 
     // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -87,7 +88,18 @@ module.exports = configure(function (ctx) {
 
     // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
-      config: {},
+      config: {
+        notify: {
+          timeout: 3000,
+          position: 'top',
+          actions:[ 
+            {
+              label: '닫기',
+              color: 'white',
+            }
+          ]
+        },
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -109,7 +121,12 @@ module.exports = configure(function (ctx) {
 
     // animations: 'all', // --- includes all animations
     // https://v2.quasar.dev/options/animations
-    animations: [],
+    animations: [
+      'slideInUp',
+      'slideOutDown',
+      'zoomIn',
+      'zoomOut',
+    ],
 
     // https://v2.quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {

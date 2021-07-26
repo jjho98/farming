@@ -1,7 +1,7 @@
 <template>
   
 <!-- 인피니트 스크롤이 window의 위치를 파악하기 때문에 keep-alive애 의해 살아있는 탭도 같이 반응하는 문제  -->
-  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" :initial-index="-1">
+  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" :initial-index="-1" v-if="isUrlChanged">
     <!-- pc 화면 -->
     <div v-if="$q.screen.gt.xs" class="flex flex-center q-gutter-lg">
       <list-item :item="item" v-for="(item, index) in items" :key="index" @clicked="routePush"/>
@@ -41,6 +41,7 @@ export default {
       items: [],
       isEmptyResult: false,
       isLoading: true,
+      isUrlChanged: false,
     }
   },
   methods: {
@@ -71,9 +72,24 @@ export default {
       this.$router.push({name: 'productDetail', params: {id}})
     }
   },
-  // created() {
-  //   this.fetchMore(0)
-  // },
+  created() {
+    console.log('created')
+  },
+  beforeRouteEnter (to, from, next) {
+    console.log('befoe enter')
+    next(vm => {
+      vm.isUrlChanged = true
+    })
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.isUrlChanged = false
+    console.log('before update')
+    console.log(to.path, from.path)
+    if (to.path === from.path) {
+      this.isUrlChanged = true
+    }
+    next()
+  },
   activated() {
     console.log('activated')
   },
