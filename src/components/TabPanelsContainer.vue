@@ -41,9 +41,11 @@ export default {
   },
   methods: {
     //  when tab changed
-    replaceRoute(newTab) {
-      console.log('here')
-      this.$router.replace({path: this.makePath(newTab)})
+    async replaceRoute(newTab) {
+      console.log('changed tab')
+      this.tab  = ''
+      await this.$router.replace({path: this.makePath(newTab)})
+      console.log('replaced route')
     },
     makePath(name) {
       let pathSplit = this.$router.currentRoute._value.fullPath.split('/')

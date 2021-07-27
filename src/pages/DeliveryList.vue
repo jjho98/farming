@@ -1,16 +1,16 @@
 <template>
   
 <!-- 인피니트 스크롤이 window의 위치를 파악하기 때문에 keep-alive애 의해 살아있는 탭도 같이 반응하는 문제  -->
-  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" :initial-index="-1" v-if="isUrlChanged">
-    <!-- pc 화면 -->
-    <div v-if="$q.screen.gt.xs" class="flex flex-center q-gutter-lg">
-      <list-item :item="item" v-for="(item, index) in items" :key="index" @clicked="routePush"/>
-    </div>
-
+  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" :initial-index="-1" >
     <!-- 모바일 화면 -->
-    <q-list separator v-if="$q.screen.xs">
+    <q-list separator v-if="$q.screen.lt.md">
       <list-item :item="item" v-for="item in items" :key="item.id" @clicked="routePush"/>
     </q-list>
+
+    <!-- pc 화면 -->
+    <div v-else class="flex flex-center q-gutter-lg q-py-xl">
+      <list-item :item="item" v-for="(item, index) in items" :key="index" @clicked="routePush"/>
+    </div>
 
     <!-- 무한 스크롤이 로딩 중일 때 -->
     <template v-slot:loading v-if="isLoading">
@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     // infinite scroll 때문에 created에서 fetch 하지 않음
-    async fetchMore(index) {
+    async fetchMore(index, done) {
       try {
         this.isLoading = true
         const res = await this.$api.get(`${this.$route.path}?index=${index}`)
@@ -58,11 +58,10 @@ export default {
           if (!this.items.length && !fetchedItems.length) {
             this.isEmptyResult = true
           }
+          done(true)
+        } else {
+          done()
         }
-        //   done(true)
-        // } else {
-        //   done()
-        // }
         this.isLoading = false
       } catch(err) {
         console.error(err)
@@ -75,21 +74,21 @@ export default {
   created() {
     console.log('created')
   },
-  beforeRouteEnter (to, from, next) {
-    console.log('befoe enter')
-    next(vm => {
-      vm.isUrlChanged = true
-    })
-  },
-  beforeRouteUpdate(to, from, next) {
-    this.isUrlChanged = false
-    console.log('before update')
-    console.log(to.path, from.path)
-    if (to.path === from.path) {
-      this.isUrlChanged = true
-    }
-    next()
-  },
+  // beforeRouteEnter (to, from, next) {
+  //   console.log('befoe enter')
+  //   next(vm => {
+  //     vm.isUrlChanged = true
+  //   })
+  // },
+  // beforeRouteUpdate(to, from, next) {
+  //   this.isUrlChanged = false
+  //   console.log('before update')
+  //   console.log(to.path, from.path)
+  //   if (to.path === from.path) {
+  //     this.isUrlChanged = true
+  //   }
+  //   next()
+  // },
   activated() {
     console.log('activated')
   },

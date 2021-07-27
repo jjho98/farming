@@ -61,8 +61,9 @@ export default {
     const res = await this.$api.get(`/product/${this.$route.params.id}`)
     this.product = res.data
     console.log(res)
-    this.isLoaded = true
+    // 옵션 오버레이에서 vuex를 통해 자원에 접근하므로 state.product가 바뀌기 전까지 대기 필요
     this.changeProduct(res.data)
+    this.isLoaded = true
   },
   activated() {
     console.log('activated')
@@ -82,7 +83,4 @@ export default {
 .q-parallax__media
   z-index: -3
 
-.test
-  max-width: 1000px
-  margin: 0 auto
 </style>
