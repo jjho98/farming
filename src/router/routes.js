@@ -38,7 +38,7 @@ const routes = [
   {
     name: 'tab',
     path: '/tab',
-    component: () => import('layouts/FooterLayout.vue'),
+    component: () => import('layouts/BackFooterLayout.vue'),
     children: [
       { name: 'addressSet', path: 'address', component: () => import('pages/AddressSet.vue')},
       { name: 'my', path: 'my', component: () => import('pages/MyInfo.vue'),
@@ -55,7 +55,7 @@ const routes = [
   {
     name: 'auth',
     path: '/auth',
-    component: () => import('layouts/FooterLayout.vue'),
+    component: () => import('layouts/BackFooterLayout.vue'),
     children: [
       { name: 'login', path: 'login', component: () => import('pages/login.vue') },
     ]

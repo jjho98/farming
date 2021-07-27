@@ -40,17 +40,15 @@ export default {
       this.$refs.form.validate().then(async (success) => {
         if (success) {
           // form이 유효하면
-          const res = await this.$api.post('/login', {
+          const res = await this.$api.post('/auth/login', {
             email: this.email,
             password: this.password,
           })
 
           if (res.status === (404 || 403)) {
             return this.$q.notify({
+              type: 'negative',
               message: res.data.message,
-              icon: 'error_outline',
-              position: 'center',
-              closeBtn: '닫기',
             })
           }
           if (res.status === 200) {
@@ -60,11 +58,8 @@ export default {
         else {
           // form이 유효성 검증 실패
           this.$q.notify({
+              type: 'negative',
               message: '전부 작성해주세요',
-              color: 'negative',
-              icon: 'error_outline',
-              position: 'top',
-              closeBtn: '닫기',
             })
         }
       })

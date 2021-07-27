@@ -1,8 +1,10 @@
 <template>
   <q-layout view="hHh lpR fFf">
 
+    <back-header/>
+
     <q-page-container>
-      <q-page class="flex flex-center">
+      <q-page>
         <router-view/>
       </q-page>
     </q-page-container>
@@ -15,14 +17,14 @@
 import { defineAsyncComponent } from 'vue'
 
 export default {
-  name: 'FooterLayout',
+  name: 'BackFooterLayout',
   components: {
-    MainFooter: defineAsyncComponent(() => import('components/MainFooter.vue'))
+    MainFooter: defineAsyncComponent(() => import('components/MainFooter.vue')),
+    BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
   },
 }
 </script>
 
 <style lang="sass" scoped>
-.q-page-container
-  background-color: white
+
 </style>
