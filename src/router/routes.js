@@ -55,9 +55,9 @@ const routes = [
   {
     name: 'auth',
     path: '/auth',
-    component: () => import('layouts/BackFooterLayout.vue'),
+    component: () => import('layouts/FullLayout.vue'),
     children: [
-      { name: 'login', path: 'login', component: () => import('pages/login.vue') },
+      { name: 'login', path: 'login', component: () => import('pages/Login.vue') },
     ]
   },
 

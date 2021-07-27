@@ -7,7 +7,7 @@ import { defineAsyncComponent } from 'vue'
 
 export default {
   components: {
-    LoginForm: defineAsyncComponent(() => import('components/loginForm.vue'))
+    LoginForm: defineAsyncComponent(() => import('components/LoginForm.vue'))
   }
 }
 </script>

@@ -1,14 +1,15 @@
 <template>
   <q-layout view="hHh lpR fFf">
+
     <back-header/>
 
     <q-page-container>
-      <q-page class="narrow">
+      <q-page class="flex flex-center">
         <router-view/>
       </q-page>
     </q-page-container>
+    <main-footer/>
 
-    <product-footer/>
   </q-layout>
 </template>
 
@@ -16,14 +17,14 @@
 import { defineAsyncComponent } from 'vue'
 
 export default {
-  name: 'ProductLayout',
+  name: 'FullLayout',
   components: {
+    MainFooter: defineAsyncComponent(() => import('components/MainFooter.vue')),
     BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
-    ProductFooter: defineAsyncComponent(() => import('components/ProductFooter.vue'))
   },
 }
 </script>
 
 <style lang="sass" scoped>
 
-</style>>
+</style>
