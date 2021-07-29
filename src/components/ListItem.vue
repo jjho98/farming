@@ -6,7 +6,10 @@
     </q-item-section>
     <q-item-section>
       <div class="text-subtitle1">{{ item.name }}</div>
-      <div class="text-subtitle2 text-bold price">{{ $filters.toCurrency(item.displayPrice) }}원</div>
+      <div class="text-subtitle2 text-bold price">
+        <span>{{ $filters.toCurrency(item.displayPrice) }}원</span>
+        <span v-if="!item.hasOneOption">~</span>
+      </div>
       <rate-display :item="item" />
     </q-item-section>
   </q-item>
@@ -18,7 +21,10 @@
     />
     <q-card-section class="q-gutter-y-sm">
       <div class="text-h6">{{ item.name }}</div>
-      <div class="text-subtitle2 price">{{ $filters.toCurrency(item.displayPrice) }}원</div>
+      <div class="text-subtitle2 price">
+        <span>{{ $filters.toCurrency(item.displayPrice) }}원</span>
+        <span v-if="!item.hasOneOption">~</span>
+      </div>
       <rate-display :item="item" />
     </q-card-section>
 

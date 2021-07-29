@@ -38,3 +38,8 @@ export function removeSelectedOption(state, index) {
 export function addSelectedOption(state, selected) {
   state.selectedOptions.push(Object.assign({count: 1}, selected))
 }
+
+// filter
+export function changeFilter(state, filter) {
+  state.selectedFilter = filter
+}

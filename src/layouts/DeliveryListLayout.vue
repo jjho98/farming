@@ -5,7 +5,8 @@
 
     <q-page-container>
       <q-page>
-        <tab-panels-container :tabs="categories" @changeTab="onChange"/>
+        <!-- <tab-panels-container :tabs="categories" @changeTab="onChange"/> -->
+        <product-tabs :tabs="categories"/>
       </q-page>
     </q-page-container>
 
@@ -22,10 +23,11 @@ export default {
   components: {
     BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
     MainFooter: defineAsyncComponent(() => import('components/MainFooter.vue')),
-    TabPanelsContainer: defineAsyncComponent(() => import('components/TabPanelsContainer.vue')),
+    // TabPanelsContainer: defineAsyncComponent(() => import('components/TabPanelsContainer.vue')),
+    ProductTabs: defineAsyncComponent(() => import('components/ProductTabs.vue')),
   },
   computed: {
-    ...mapState('categories', {
+    ...mapState('fixedTerms', {
       categories: 'deliveryCategories'
     }),
   },

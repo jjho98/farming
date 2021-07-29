@@ -14,7 +14,7 @@
         <!-- option select -->
         <q-select color="secondary" v-model="selected" :options="productOptions" label="구매 옵션을 선택해주세요" filled @update:model-value="changeSelected">
           <template v-slot:option="scope">
-            <q-item v-bind="scope.itemProps">
+            <q-item class="option-item" v-bind="scope.itemProps">
               <q-item-section>
                 <q-item-label >{{ scope.opt.name }}</q-item-label>
                 <q-item-label >{{ $filters.toCurrency(scope.opt.price) }}원</q-item-label>
@@ -24,7 +24,7 @@
         </q-select>
         
         <!-- 주문하려는 옵션들 -->
-        <div class="text-black flex flex-center">
+        <div class="text-black q-gutter-y-sm">
           <transition-group
             enter-active-class="animated zoomIn"
             leave-active-class="animated zoomOut"
@@ -117,7 +117,7 @@ export default {
 <style lang="sass" scoped>
 .outer
   position: fixed
-  bottom: 50px
+  bottom: 49px
   width: 100%
   
 .convex-tab
@@ -139,4 +139,8 @@ export default {
   
 .tab-btn
   width: 90%
+
+
+.option-item
+  border-bottom: 0.1px solid $grey-2
 </style>>

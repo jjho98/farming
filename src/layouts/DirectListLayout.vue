@@ -25,7 +25,7 @@ export default {
     TabPanelsContainer: defineAsyncComponent(() => import('components/TabPanelsContainer.vue')),
   },
   computed: {
-    ...mapState('categories', {
+    ...mapState('fixedTerms', {
       categories: 'directCategories',
     })
   },

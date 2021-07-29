@@ -14,7 +14,7 @@
       <div class="text-h4 text-bold">{{ product.name }}</div>
       <div>
         <span>{{ $filters.toCurrency(product.displayPrice) }}원</span>
-        <span v-if="!onlyOneOption">~</span>
+        <span v-if="!product.hasOneOption">~</span>
       </div>
     </div>
     <q-separator spaced color="black" size="10px"/>
@@ -50,11 +50,6 @@ export default {
     return {
       product: null,
       isLoaded: false,
-    }
-  },
-  computed: {
-    onlyOneOption() {
-      return !!this.product.hasOneOption
     }
   },
   async created() {

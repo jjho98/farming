@@ -27,4 +27,6 @@ export default {
 <style lang="sass" scoped>
 .title
   margin-left: -32px
+
+
 </style>

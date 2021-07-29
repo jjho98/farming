@@ -17,7 +17,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('categories', [
+    ...mapState('fixedTerms', [
       'deliveryCategories'
     ])
   }

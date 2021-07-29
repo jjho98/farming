@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <back-header/>
+    <product-header/>
 
     <q-page-container>
       <q-page class="narrow">
@@ -18,7 +18,7 @@ import { defineAsyncComponent } from 'vue'
 export default {
   name: 'ProductLayout',
   components: {
-    BackHeader: defineAsyncComponent(() => import('components/BackHeader.vue')),
+    ProductHeader: defineAsyncComponent(() => import('components/ProductHeader.vue')),
     ProductFooter: defineAsyncComponent(() => import('components/ProductFooter.vue'))
   },
 }

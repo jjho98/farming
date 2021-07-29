@@ -83,6 +83,28 @@ export default function() {
         label: '분류8',
         name: 'fruits8'
       },
+    ],
+    productFilters: [
+      {
+        label: '거리순',
+        name: 'distance',
+        order: 'ASC',
+      },
+      {
+        label: '가격순',
+        name: 'displayPrice',
+        order: 'ASC',
+      },
+      {
+        label: '별점순',
+        name: 'averageRate',
+        order: 'DESC',
+      },
+      {
+        label: '판매순',
+        name: 'orderCount',
+        order: 'DESC',
+      },
     ]
   }
 }

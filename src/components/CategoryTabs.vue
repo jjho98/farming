@@ -21,7 +21,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('choices', [
+    ...mapState('fixedTerms', [
         'selectedCategory'
       ])
   }

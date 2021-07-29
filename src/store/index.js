@@ -1,7 +1,7 @@
 import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
 import choices from './choices'
-import categories from './categories'
+import fixedTerms from './fixedTerms'
 
 // import example from './module-example'
 
@@ -18,7 +18,7 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
       choices,
-      categories,
+      fixedTerms,
     },
 
     // enable strict mode (adds overhead!)

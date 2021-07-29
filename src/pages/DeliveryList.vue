@@ -1,7 +1,7 @@
 <template>
-  
-<!-- 인피니트 스크롤이 window의 위치를 파악하기 때문에 keep-alive애 의해 살아있는 탭도 같이 반응하는 문제  -->
-  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" :initial-index="-1" >
+
+  <!-- 인피니트 스크롤이 window의 위치를 파악하기 때문에 keep-alive애 의해 살아있는 탭도 같이 반응하는 문제  -->
+  <q-infinite-scroll @load="fetchMore" :offset="50" scroll-target="body" :initial-index="-1" ref="infiniteScroll" >
     <!-- 모바일 화면 -->
     <q-list separator v-if="$q.screen.lt.md">
       <list-item :item="item" v-for="item in items" :key="item.id" @clicked="routePush"/>
@@ -30,18 +30,31 @@
 
 <script>
 import { defineAsyncComponent } from 'vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'DeliveryList',
   components: {
-    ListItem: defineAsyncComponent(() => import('components/ListItem.vue'))
+    ListItem: defineAsyncComponent(() => import('components/ListItem.vue')),
   },
   data() {
     return {
       items: [],
       isEmptyResult: false,
       isLoading: true,
-      isUrlChanged: false,
+    }
+  },
+  computed: {
+    ...mapState('choices', [
+      'selectedFilter'
+    ])
+  },
+  watch: {
+    selectedFilter: function() {
+      this.items = []
+      this.$refs.infiniteScroll.setIndex(-1)
+      this.$refs.infiniteScroll.resume()
+      console.log(this.selectedFilter)
     }
   },
   methods: {
@@ -49,7 +62,7 @@ export default {
     async fetchMore(index, done) {
       try {
         this.isLoading = true
-        const res = await this.$api.get(`${this.$route.path}?index=${index}`)
+        const res = await this.$api.get(`${this.$route.path}?index=${index}&filter=${this.selectedFilter.name}&order=${this.selectedFilter.order}`)
         console.log(res)
         const fetchedItems = res.data.rows
         this.items.push(...fetchedItems)
@@ -69,32 +82,8 @@ export default {
     },
     routePush(id) {
       this.$router.push({name: 'productDetail', params: {id}})
-    }
+    },
   },
-  created() {
-    console.log('created')
-  },
-  // beforeRouteEnter (to, from, next) {
-  //   console.log('befoe enter')
-  //   next(vm => {
-  //     vm.isUrlChanged = true
-  //   })
-  // },
-  // beforeRouteUpdate(to, from, next) {
-  //   this.isUrlChanged = false
-  //   console.log('before update')
-  //   console.log(to.path, from.path)
-  //   if (to.path === from.path) {
-  //     this.isUrlChanged = true
-  //   }
-  //   next()
-  // },
-  activated() {
-    console.log('activated')
-  },
-  deactivated() {
-    console.log('deactivated')
-  }
 }
 </script>
 

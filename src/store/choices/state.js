@@ -8,5 +8,10 @@ export default function () {
     },
     isShowingBottomTab: false,
     selectedOptions: [],
+    selectedFilter: {
+      label: '판매순',
+      name: 'orderCount',
+      order: 'DESC',
+    },
   }
 }

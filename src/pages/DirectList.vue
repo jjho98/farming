@@ -23,7 +23,7 @@ export default {
   components: {
   },
   computed: {
-    ...mapState('categories', [
+    ...mapState('fixedTerms', [
       'directCategories'
     ])
   }
