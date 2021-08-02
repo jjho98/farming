@@ -23,7 +23,7 @@
         icon="message"
         :done="step > 1"
       >
-        <sms-verification-tab @clickedNext="moveNext"/>
+        <sms-verification-tab @verifiedSms="completed = true"/>
       </q-step>
       <q-step
         :name="2"
@@ -35,7 +35,7 @@
       </q-step>
       <template v-slot:navigation>
         <q-stepper-navigation>
-          <q-btn @click="$refs.stepper.next()" color="primary" :label="step === 2 ?'등록' : '다음으로'" />
+          <q-btn v-if="completed" @click="onClickNextButton" color="primary" :label="step === 2 ?'홈으로' : '다음으로'" />
           <!-- <q-btn v-if="step > 1" flat color="primary" @click="$refs.stepper.previous()" label="Back" class="q-ml-sm" /> -->
         </q-stepper-navigation>
       </template>
@@ -55,12 +55,29 @@ export default {
   data() {
     return {
       step: 1,
+      completed: false,
     }
   },
   methods: {
     moveNext() {
       console.log('clicked')
-    }
+    },
+    onClickNextButton() {
+      // all completed
+      if (this.step == 2) {
+        return this.$router.replace({name: 'main'})
+      }
+
+      this.$refs.stepper.next()
+      this.completed = false
+    },
+    // onRegister() {
+    //   this.completed = true
+    //   this.$q.notify({
+    //     type: 'success',
+    //     message: '회원가입 되었습니다'
+    //   })
+    // }
   },
 }
 </script>

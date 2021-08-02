@@ -1,7 +1,7 @@
 <template>
   <!-- 전화번호 입력 폼 -->
   <div class="q-gutter-md">
-    <q-input v-model="phoneNumber" type="tel" label="전화번호" maxlength="11" :rules="phonRule"/>
+    <q-input v-model="phoneNumber" type="tel" label="전화번호" maxlength="11"/>
     <div>{{splitPhoneNumber}}</div>
     <q-btn color="primary" label="인증번호 요청" @click="sendVerifictaionSms" />
   </div>
@@ -18,19 +18,20 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
+
 export default {
   emits: [
-    'clickedNext',
+    'verifiedSms',
   ],
   data() {
     return {
       phoneNumber: '',
       typedCode: '',
       // 잠시 true로 해놓음
-      isVerified: true,
-      phoneRule: [
-        val => (/^\d{2,3}-\d{3,4}-\d{4}$/).test(phoneNumber) || '올바른 전화번호를 입력해주세요'
-      ]
+      // phoneRule: [
+      //   val => (/^\d{2,3}-\d{3,4}-\d{4}$/).test(this.phoneNumber) || '올바른 전화번호를 입력해주세요'
+      // ]
     }
   },
   computed: {
@@ -51,6 +52,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('choices', [
+      'savePhone'
+    ]),
     async sendVerifictaionSms() {
       const res = await this.$api.post('/auth/sms', {
         phoneNumber: this.phoneNumber
@@ -66,7 +70,11 @@ export default {
           type: 'positive',
           message: 'SMS 인증에 성공했습니다'
         })
-        this.isVerified = true
+        // this.isVerified = true
+        // vuex에 폰 번호 임시 저장
+        this.savePhone(this.phoneNumber)
+        // 부모에게 알리기
+        this.$emit('verifiedSms')
       } else if (res.status == 409) {
         this.$q.notify({
           type: 'negative',
@@ -74,9 +82,9 @@ export default {
         })
       }
     },
-    clickedNext() {
-      this.$emit('clickedNext')
-    }
+    // clickedNext() {
+    //   this.$emit('clickedNext')
+    // }
   }
 }
 </script>

@@ -33,7 +33,7 @@ export default boot(({ app, router }) => {
     },
     async (error) => {
       if (error.config && error.response && error.response.status) {
-        Loading.hide()
+        // Loading.hide()
         // 로그인 필요
         if (error.response.status === 401) {
           return router.push({name: 'login'})
@@ -48,7 +48,7 @@ export default boot(({ app, router }) => {
         return error.response
       }
 
-      //  return Promise.reject(error)
+       return Promise.reject(error)
     }
 
   )

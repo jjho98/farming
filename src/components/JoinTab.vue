@@ -1,6 +1,6 @@
 <template>
   <q-form
-    @submit="onSubmit"
+    @submit.prevent="onSubmit"
     class="q-gutter-md"
   >
     <!-- 이메일 폼 -->
@@ -16,15 +16,18 @@
     <div class="text-h6">닉네임</div>
     <q-input v-model="nickname" type="text" :rules="nicknameRule"/>
     
-    <!-- 다음 버튼 -->
-    <!-- <div v-if="isVerified">
-      <q-btn class="float-right" color="dark" icon-right="navigate_next" label="다음" @click="clickedNext" />
-    </div> -->
+    <!-- 제출 버튼 -->
+    <q-btn type="submit" class="float-right" color="dark" icon-right="navigate_next" label="등록" />
   </q-form>
 </template>
 
 <script>
+import {mapState, mapMutations} from 'vuex'
+
 export default {
+  // emits: [
+  //   'registeredMember'
+  // ],
   data() {
     return {
       email: '',
@@ -43,6 +46,37 @@ export default {
       nicknameRule: [
         val => (val && val.length <= 20) || '닉네임은 1글자 이상 20글자 이하여야 합니다' 
       ]
+    }
+  },
+  computed: {
+    ...mapState('choices', [
+      'phone'
+    ]),
+  },
+  methods: {
+    ...mapMutations('choices', [
+      'clearPhone'
+    ]),
+    async onSubmit() {
+      const res = await this.$api.post('auth/join', {
+        email: this.email,
+        password: this.password,
+        nickname:  this.nickname,
+        phone: this.phone,
+      })
+      console.log(res)
+      if (res.status == 201) {
+        this.clearPhone()
+        this.$q.notify({
+          type: 'positve',
+          message: res.data.message
+        })
+        return this.$router.replace({name: 'main'})
+      }
+      return this.$q.notify({
+        type: 'negative',
+        message: res.data.message
+      })
     }
   },
 }

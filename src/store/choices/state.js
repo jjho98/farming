@@ -13,5 +13,6 @@ export default function () {
       name: 'orderCount',
       order: 'DESC',
     },
+    phone: '',
   }
 }

@@ -43,3 +43,13 @@ export function addSelectedOption(state, selected) {
 export function changeFilter(state, filter) {
   state.selectedFilter = filter
 }
+
+// phone number 임시 저장
+export function savePhone(state, phone) {
+  state.phone = phone
+}
+
+// phone number 삭제
+export function clearPhone(state) {
+  state.phone = ''
+}
