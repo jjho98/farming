@@ -4,7 +4,7 @@
     <back-header/>
 
     <q-page-container>
-      <q-page class="flex flex-center">
+      <q-page class="flex flex-center container">
         <router-view/>
       </q-page>
     </q-page-container>

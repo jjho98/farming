@@ -3,13 +3,14 @@
   <div class="container">
     <q-list bordered separator>
       <q-item class="q-pa-lg">
+        <!-- 프로필 사진 -->
         <q-item-section avatar class="">
           <input @input="updateProfile" v-show="false" type="file" name="profile" id="profile" accept=".jpg, image/*" >
           <q-btn round v-if="isLoaded">
             <label class="profile-label" for="profile"></label>
-            <!-- profile 있을 시 -->
-            <q-avatar v-if="!user.profile" color="black" text-color="white" icon="person" />
             <!-- profile 없을 시 -->
+            <q-avatar v-if="!user.profile" color="black" text-color="white" icon="person" />
+            <!-- profile 있을 시 -->
             <q-avatar v-else>
               <img
                 :src="'http://localhost:3000/img/' + user.profile"
@@ -19,7 +20,9 @@
           <!-- 데이터 로딩 중 skeleton -->
           <q-skeleton v-else type="QAvatar"/>
         </q-item-section>
+        
         <q-item-section>
+          <!-- 닉네임 -->
           <div class="text-h6 text-bold" v-if="isLoaded">
             {{ user.nickname }}
             <q-btn flat dense icon="chevron_right" @click="changeNickname"/>
@@ -40,10 +43,12 @@
                 @keyup.enter="scope.set"
               />
             </q-popup-edit>
+            <q-btn class="q-ma-sm" dense outline label="로그아웃" @click="onClick" />
           </div>
           <!-- 데이터 로딩 중 skeleton -->
           <q-skeleton v-else type="rect"/>
 
+          <!-- 이메일 -->
           <q-item-label caption v-if="isLoaded">{{ user.email }}</q-item-label>
           <!-- 데이터 로딩 중 skeleton -->
           <q-skeleton v-else type="text"/>
@@ -63,8 +68,10 @@ export default {
   },
   async created() {
     const res = await this.$api.get('/user/me')
-    this.user = res.data
-    this.isLoaded = true
+    if (res) {
+      this.user = res.data
+      this.isLoaded = true
+    }
   },
   methods: {
     async updateProfile(e) {

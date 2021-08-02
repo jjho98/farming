@@ -58,6 +58,8 @@ const routes = [
     component: () => import('layouts/FullLayout.vue'),
     children: [
       { name: 'login', path: 'login', component: () => import('pages/Login.vue') },
+      { name: 'join', path: 'join', component: () => import('pages/Join.vue') },
+      { path: 'kakao/callback', component: () => import('pages/KakaoCallback.vue') },
     ]
   },
 

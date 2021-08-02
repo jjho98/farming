@@ -5,7 +5,7 @@
       <q-route-tab class="col" icon="content_paste" label="주문내역"></q-route-tab>
       <q-route-tab class="col" icon="search" label="검색"></q-route-tab>
       <q-route-tab class="col" icon="notifications_none" label="알림">
-        <q-badge rounded floating color="yellow" />
+        <q-badge rounded floating color="yellow">4</q-badge>
       </q-route-tab>
       <q-route-tab :to="{name: 'my'}" class="col" icon="person_outline" label="My"></q-route-tab>
     </q-tabs>
