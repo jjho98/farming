@@ -23,30 +23,32 @@
         
         <q-item-section>
           <!-- 닉네임 -->
-          <div class="text-h6 text-bold" v-if="isLoaded">
-            {{ user.nickname }}
-            <q-btn flat dense icon="chevron_right" @click="changeNickname"/>
-            <q-popup-edit 
-              v-model="user.nickname" 
-              :offset="[0, 5]" 
-              :cover="false" 
-              buttons
-              v-slot="scope"
-              label-cancel="취소"              
-              label-set="변경"
-              :validate="validateNickname"
-              @save="updateNickname"
-             >
-              <q-input 
-                v-model="scope.value"
-                dense counter autofocus
-                @keyup.enter="scope.set"
-              />
-            </q-popup-edit>
-            <q-btn class="q-ma-sm" dense outline label="로그아웃" @click="onClick" />
+          <div class="row" v-if="isLoaded">
+            <div class="text-h6 text-bold" >
+              {{ user.nickname }}
+              <q-btn flat dense icon="chevron_right" @click="later"/>
+              <q-popup-edit 
+                v-model="user.nickname" 
+                :offset="[0, 5]" 
+                :cover="false" 
+                buttons
+                v-slot="scope"
+                label-cancel="취소"              
+                label-set="변경"
+                :validate="validateNickname"
+                @save="updateNickname"
+              >
+                <q-input 
+                  v-model="scope.value"
+                  dense counter autofocus
+                  @keyup.enter="scope.set"
+                />
+              </q-popup-edit>
+            </div>
+            <q-btn class="q-ma-sm" dense outline label="로그아웃" @click="logout" />
           </div>
           <!-- 데이터 로딩 중 skeleton -->
-          <q-skeleton v-else type="rect"/>
+          <q-skeleton v-else type ="rect"/>
 
           <!-- 이메일 -->
           <q-item-label caption v-if="isLoaded">{{ user.email }}</q-item-label>
@@ -74,6 +76,9 @@ export default {
     }
   },
   methods: {
+    later() {
+
+    },
     async updateProfile(e) {
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length)
@@ -129,7 +134,11 @@ export default {
       }
 
       return true
-    }
+    },
+    async logout() {
+      const res = await this.$api.post('/auth/logout')
+      this.$router.push({name: 'home'})
+    },
   },
 }
 </script>

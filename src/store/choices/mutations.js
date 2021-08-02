@@ -19,7 +19,7 @@ export function hideBottomTab(state) {
   state.isShowingBottomTab = false
 }
 
-// selected options (구매 예정)
+// selected options mutaion (구매 예정)
 export function addOptionCount(state, index) {
   state.selectedOptions[index].count += 1
 }
@@ -39,6 +39,10 @@ export function addSelectedOption(state, selected) {
   state.selectedOptions.push(Object.assign({count: 1}, selected))
 }
 
+export function clearSelectedOption(state) {
+  state.selectedOptions = []
+}
+
 // filter
 export function changeFilter(state, filter) {
   state.selectedFilter = filter
@@ -52,4 +56,10 @@ export function savePhone(state, phone) {
 // phone number 삭제
 export function clearPhone(state) {
   state.phone = ''
+}
+
+// 제품 상세 화면 나가기 전에
+export function clearProductDetailSetting(state) {
+  state.isShowingBottomTab = false
+  state.selectedOptions = []
 }

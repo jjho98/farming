@@ -6,7 +6,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', redirect: {name: 'deliveryIndex'} },
+      { name: 'home', path: '', redirect: {name: 'deliveryIndex'} },
       { name: 'deliveryIndex', path: 'delivery', component: () => import('pages/DeliveryIndex.vue') },
       { name: 'directIndex', path: 'direct', component: () => import('pages/DirectIndex.vue') },
     ]
@@ -16,7 +16,7 @@ const routes = [
     path: '/delivery',
     component: () => import('layouts/DeliveryListLayout.vue'),
     children: [
-      { name: 'deliveryList', path: ':category', component: () => import('pages/DeliveryList.vue') },
+      { name: 'deliveryList', path: ':category', component: () => import('pages/DeliveryList.vue'), meta: {title: '배달'} },
     ]
   },
   {
@@ -24,7 +24,7 @@ const routes = [
     path: '/direct',
     component: () => import('layouts/DirectListLayout.vue'),
     children: [
-      { name: 'directList', path: ':category', component: () => import('pages/DirectList.vue') },
+      { name: 'directList', path: ':category', component: () => import('pages/DirectList.vue'), meta: {title: '직거래'} },
     ]
   },
   {
@@ -40,16 +40,9 @@ const routes = [
     path: '/tab',
     component: () => import('layouts/BackFooterLayout.vue'),
     children: [
-      { name: 'addressSet', path: 'address', component: () => import('pages/AddressSet.vue')},
-      { name: 'my', path: 'my', component: () => import('pages/MyInfo.vue'),
-        // beforeEnter: (to, from, next) => {
-        //   if (!Cookies.has('role')) {
-        //     next({name: 'login'})
-        //   } else {
-        //     next()
-        //   }
-        // }
-      },
+      { name: 'addressSet', path: 'address', component: () => import('pages/AddressSet.vue'), meta: {title: '주소 설정'}},
+      { name: 'my', path: 'my', component: () => import('pages/MyInfo.vue'), meta: {title: '내 정보'} },
+      { name: 'cart', path: 'cart', component: () => import('pages/Cart.vue'), meta: {title: '장바구니'} },
     ]
   },
   {

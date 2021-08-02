@@ -68,8 +68,12 @@ export default {
   },
   methods: {
     ...mapMutations('choices', [
-      'changeProduct'
+      'changeProduct',
+      'clearProductDetailSetting',
     ])
+  },
+  beforeUnmount() {
+    this.clearProductDetailSetting()
   },
 }
 </script>

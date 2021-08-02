@@ -3,7 +3,7 @@
     <q-toolbar>
       <q-btn flat dense icon="arrow_back_ios" @click="goBack"/>
       <q-toolbar-title class="text-center text-subtitle2 text-weight-bolder title">
-        {{ label }}
+        {{ $route.meta.title ? $route.meta.title : '' }}
       </q-toolbar-title>
     </q-toolbar>
   </q-header>
@@ -13,9 +13,6 @@
 import {mapState} from 'vuex'
 
 export default {
-  props: [
-    'label'
-  ],
   methods: {
     goBack() {
       this.$router.back()

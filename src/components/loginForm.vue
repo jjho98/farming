@@ -44,7 +44,7 @@ export default {
     }
   },
   methods: {
-    async localLogin() {
+    localLogin() {
       // form 유효성 검증
       this.$refs.form.validate().then(async (success) => {
         if (success) {
@@ -53,14 +53,14 @@ export default {
             email: this.email,
             password: this.password,
           })
-
-          if (res.status === (404 || 403)) {
+          
+          if (res.request.status === (404 || 403)) {
             return this.$q.notify({
               type: 'negative',
               message: res.data.message,
             })
           }
-          if (res.status === 200) {
+          if (res.request.status === 200) {
             return this.$router.back()
           }
         } 

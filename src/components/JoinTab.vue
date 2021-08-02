@@ -71,7 +71,7 @@ export default {
           type: 'positve',
           message: res.data.message
         })
-        return this.$router.replace({name: 'main'})
+        return this.$router.replace({name: 'home'})
       }
       return this.$q.notify({
         type: 'negative',

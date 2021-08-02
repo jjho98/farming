@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { productOptions } from 'src/store/choices/getters'
 import {mapMutations, mapGetters} from 'vuex'
 
 export default {
@@ -30,15 +31,21 @@ export default {
   methods: {
     ...mapMutations('choices', [
       'showBottomTab',
+      'clearSelectedOption',
     ]),
-    onClickCart() {
+    async onClickCart() {
       if (!this.selectedOptions.length || !this.isShowingBottomTab) {
         this.showBottomTab()
       } else {
-        this.$q.notify({
-          type: 'positive',
-          message: '장바구니에 상품이 담겼습니다'
-        })
+        const res = await this.$api.put('/user/cart', {
+          selectedOptions: this.selectedOptions
+        }) 
+        if (res.status === 200) {
+          this.$q.notify({
+            type: 'positive',
+            message: '장바구니에 상품이 담겼습니다'
+          })
+        }
       }
     },
     onClickPurchase() {
@@ -46,6 +53,8 @@ export default {
         this.showBottomTab()
       } else {
         // this.$router.push({name: 'purchase'})
+
+
       }
     }
   },

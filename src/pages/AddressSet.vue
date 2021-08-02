@@ -1,5 +1,5 @@
 <template>
-  <back-header label="주소 설정" class="shadow-bottom" />
+  <back-header/>
   <div class="q-gutter-y-md">
 
     <!-- 검색 폼 -->
@@ -156,7 +156,7 @@ export default {
     }
   },
   created() {
-    this.addressHistories = this.$q.localStorage.getItem('addressHistories')
+    this.addressHistories = this.$q.localStorage.getItem('addressHistories')  ? this.$q.localStorage.getItem('addressHistories') : []
   }
 }
 </script>

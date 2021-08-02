@@ -36,11 +36,18 @@
               
               <!-- 선택한 옵션 수량, 가격 표시 -->
               <div class="row justify-between q-mt-sm">
-                <div>
+                <!-- <div class="row">
                   <q-btn class="cube" outline color="secondary" icon="remove" @click="subtractOptionCount(index)" />
-                  <q-btn class="cube" outline color="black" :label="option.count" disable />
-                  <q-btn class="cube" outline color="secondary" icon="add" @click="addOptionCount(index)" />
-                </div>
+                  <q-btn class="cube" outline color="black" :label="option.count" disable /> -->
+                  <!-- <q-input class="cube" type="number" outlined color="black" v-model="option.count"/> -->
+                  <!-- <q-btn class="cube" outline color="secondary" icon="add" @click="addOptionCount(index)" />
+                </div> -->
+                <!-- count controller -->
+                <count-controller 
+                  :initialCount="option.count"
+                  @increasedCount="addOptionCount(index)"
+                  @decreasedCount="subtractOptionCount(index)"
+                />
                 <div>
                   <div class="text-h6">{{ $filters.toCurrency(option.price * option.count) }}원</div>
                 </div>
@@ -67,8 +74,12 @@
 
 <script>
 import {mapGetters, mapMutations} from 'vuex'
+import {defineAsyncComponent} from 'vue'
 
 export default {
+  components: {
+    CountController: defineAsyncComponent(() => import('components/CountController.vue')),
+  },
   data() {
     return {
       selected: '',
@@ -126,9 +137,6 @@ export default {
 .option-card
   width: 100%
 
-.cube
-  width: 32px
-  height: 32px
 
 .tab-btn-container
   border-radius: 100px 100px 0 0
@@ -140,6 +148,12 @@ export default {
 .tab-btn
   width: 90%
 
+// .cube
+//   width: 32px
+//   height: 32px
+  // .q-field__control
+  //   height: 100%
+  //   width: 100%
 
 .option-item
   border-bottom: 0.1px solid $grey-2

@@ -36,7 +36,7 @@ export default boot(({ app, router }) => {
         // Loading.hide()
         // 로그인 필요
         if (error.response.status === 401) {
-          return router.push({name: 'login'})
+          return router.replace({name: 'login'})
         }
 
         // if (error.response.status === 404) {
