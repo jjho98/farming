@@ -16,17 +16,21 @@
         />
       </q-item-section>
       <q-item-section>
-        <div class="text-suubtitle1 text-weight-bold">{{ item.Option.Product.name }}</div>
+        <div class="ellipsis-row">
+          <div class="ellipsis text-suubtitle1 text-weight-bold">{{ item.Option.Product.name }}</div>
+          <q-space />
+          <q-btn flat dense color="primary" icon="clear" @click="onClick" />
+        </div>
         <div class="text-caption">옵션명: {{ item.Option.name }}</div>
         <count-controller
           :initialCount="count"
           @increasedCount="increaseCount"
           @decreasedCount="decreaseCount"
         />
-        <!-- <div class="text-caption text-grey-7">X{{ item.count }}</div> -->
         <div class="text-subtitle2 text-weight-bold">{{ item.Option.price * item.count }}원</div>
       </q-item-section>
     </q-item>
+
 
     <!-- 판매 중 X -->
     <q-item
@@ -78,7 +82,9 @@ export default {
     routePush() {
       this.$router.push({name: 'productDetail', params: {id: this.item.Option.Product.id}})
     },
-
+    async saveChangedCount() {
+      await this.$api.put('/user/cart/count')
+    },
     // 작성 필요
     increaseCount() {
 
