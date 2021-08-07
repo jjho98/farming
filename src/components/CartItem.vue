@@ -24,6 +24,7 @@
         <div class="text-caption">옵션명: {{ item.Option.name }}</div>
         <count-controller
           :initialCount="count"
+          size="10px"
           @increasedCount="increaseCount"
           @decreasedCount="decreaseCount"
         />
