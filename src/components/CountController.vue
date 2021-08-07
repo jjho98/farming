@@ -1,9 +1,9 @@
 <template>
   <div class="row">
-    <q-btn class="cube" outline color="secondary" icon="remove" @click="clickMinus" />
-    <q-btn class="cube" outline color="black" :label="count" disable />
+    <q-btn class="cube" :style="cubeStyle" outline color="secondary" icon="remove" @click="clickMinus" />
+    <q-btn class="cube" :style="cubeStyle" outline color="black" :label="count" disable />
     <!-- <q-input class="cube" type="number" outlined color="black" v-model="option.count"/> -->
-    <q-btn class="cube" outline color="secondary" icon="add" @click="clickPlus" />
+    <q-btn class="cube" :style="cubeStyle" outline color="secondary" icon="add" @click="clickPlus" />
   </div>
 </template>
 
@@ -11,6 +11,7 @@
 export default {
   props: [
     'initialCount',
+    'size',
   ],
   emits: [
     'increasedCount',
@@ -19,6 +20,14 @@ export default {
   data() {
     return {
       count: this.initialCount,
+    }
+  },
+  computed: {
+    cubeStyle() {
+      return {
+        width: this.size,
+        height: this.size,
+      }
     }
   },
   methods: {
