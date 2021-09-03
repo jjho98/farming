@@ -18,7 +18,7 @@ const cache = setupCache({
   },
 });
 const api = axios.create({
-  baseURL: "http://18.118.196.166/api/v1",
+  baseURL: "http://13.125.134.133/api/v1",
   withCredentials: true,
   adapter: cache.adapter,
 });
