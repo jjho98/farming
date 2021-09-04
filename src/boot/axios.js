@@ -18,7 +18,7 @@ const cache = setupCache({
   },
 });
 const api = axios.create({
-  baseURL: "http://13.125.134.133/api/v1",
+  baseURL: "https://farmon.ml/api/v1",
   withCredentials: true,
   adapter: cache.adapter,
 });
